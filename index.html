@@ -2,34 +2,1117 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>title</title>
+    <title>Isaac Ricardo - Portafolio</title>
+    
+    <!-- Google Fonts - Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        function showSection(sectionId, buttonElement) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.section-content');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Mostrar la sección seleccionada
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            // Actualizar botones activos del nav
+            const buttons = document.querySelectorAll('.boton');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Marcar botón activo - buscar por el onclick que contenga la sección
+            if (buttonElement) {
+                buttonElement.classList.add('active');
+            } else {
+                // Fallback: buscar el botón por su onclick
+                const activeButton = document.querySelector(`[onclick*="'${sectionId}'"]`);
+                if (activeButton) {
+                    activeButton.classList.add('active');
+                }
+            }
+            
+            // Reinicializar efectos de hover si estamos en la sección de educación
+            if (sectionId === 'educacion') {
+                setTimeout(() => {
+                    if (typeof initCertAnimations === 'function') {
+                        initCertAnimations();
+                    }
+                }, 300);
+            }
+        }
+        
+        // Mostrar sección inicial al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('inicio');
+            initCertAnimations();
+        });
+
+        // Mapeo de certificados a sus íconos claros
+        const certIconMap = {
+            'metodologia': 'assets/icons/PhGearSixFill.svg',
+            'marketing': 'assets/icons/NimbusMarketing (2).svg',
+            'python-analisis': 'assets/icons/DeviconPlainPython.svg',
+            'python-variables': 'assets/icons/DeviconPlainPython.svg',
+            'mysql': 'assets/icons/CibMysql.svg',
+            'cpp3': 'assets/icons/icons8-c++.svg',
+            'cpp2': 'assets/icons/icons8-c++.svg',
+            'cpp1': 'assets/icons/icons8-c++.svg',
+            'appinventor': 'assets/icons/DuoIconsAndroid.svg',
+            'java-variables': 'assets/icons/DeviconPlainJava.svg',
+            'php': 'assets/icons/SimpleIconsPhp.svg',
+            'java-gui': 'assets/icons/DeviconPlainJava.svg',
+            'cpp-conceptos': 'assets/icons/icons8-c++.svg',
+            'electronica': 'assets/icons/StreamlineUltimateMicrochipBoard.svg',
+            'informatica': 'assets/icons/TablerDeviceImacCog.svg'
+        };
+
+        // Funciones para animaciones de certificados
+        function initCertAnimations() {
+            const certCards = document.querySelectorAll('.certification-card');
+            
+            certCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const certId = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+                    startHoverAnimation(this, certId);
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    stopHoverAnimation();
+                });
+            });
+        }
+
+        function startHoverAnimation(cardElement, certId) {
+            // Activar estado hover en la tarjeta
+            cardElement.classList.add('hover-active');
+            
+            // Crear contenedor local para íconos flotantes si no existe
+            let localContainer = cardElement.querySelector('.floating-icons-local');
+            if (!localContainer) {
+                localContainer = document.createElement('div');
+                localContainer.className = 'floating-icons-local';
+                cardElement.appendChild(localContainer);
+            }
+            
+            // Limpiar íconos previos
+            localContainer.innerHTML = '';
+            
+            // Obtener el ícono específico del certificado
+            const iconSrc = certIconMap[certId] || 'assets/icons/DuoIconsCertificate.svg';
+            
+            // Obtener dimensiones del contenedor
+            const rect = cardElement.getBoundingClientRect();
+            const containerWidth = rect.width;
+            const containerHeight = rect.height;
+            
+            // Crear múltiples íconos que aparecen desde los bordes
+            for (let i = 0; i < 12; i++) {
+                setTimeout(() => {
+                    createDispersionIcon(localContainer, iconSrc, containerWidth, containerHeight, i);
+                }, i * 200);
+            }
+        }
+
+        function createDispersionIcon(container, iconSrc, containerWidth, containerHeight, index) {
+            const icon = document.createElement('img');
+            icon.src = iconSrc;
+            icon.className = 'cert-floating-icon';
+            
+            // Determinar desde qué borde aparece el ícono
+            const side = index % 4;
+            let startX, startY, directionClass;
+            
+            switch(side) {
+                case 0: // Desde arriba
+                    startX = Math.random() * containerWidth + 40; // 40px de offset por el padding del contenedor local
+                    startY = 0;
+                    directionClass = 'from-top';
+                    break;
+                case 1: // Desde la derecha
+                    startX = containerWidth + 40;
+                    startY = Math.random() * containerHeight + 40;
+                    directionClass = 'from-right';
+                    break;
+                case 2: // Desde abajo
+                    startX = Math.random() * containerWidth + 40;
+                    startY = containerHeight + 40;
+                    directionClass = 'from-bottom';
+                    break;
+                case 3: // Desde la izquierda
+                    startX = 0;
+                    startY = Math.random() * containerHeight + 40;
+                    directionClass = 'from-left';
+                    break;
+            }
+            
+            // Añadir variación aleatoria en la posición
+            startX += (Math.random() - 0.5) * 30;
+            startY += (Math.random() - 0.5) * 30;
+            
+            icon.style.left = startX + 'px';
+            icon.style.top = startY + 'px';
+            icon.classList.add(directionClass);
+            
+            container.appendChild(icon);
+            
+            // Remover ícono después de la animación
+            setTimeout(() => {
+                if (icon.parentNode) {
+                    icon.parentNode.removeChild(icon);
+                }
+            }, 3500);
+        }
+
+        function stopHoverAnimation() {
+            // Remover estado hover de todas las tarjetas
+            document.querySelectorAll('.certification-card.hover-active').forEach(card => {
+                card.classList.remove('hover-active');
+                
+                // Remover contenedor local de íconos flotantes
+                const localContainer = card.querySelector('.floating-icons-local');
+                if (localContainer) {
+                    setTimeout(() => {
+                        if (localContainer.parentNode) {
+                            localContainer.parentNode.removeChild(localContainer);
+                        }
+                    }, 500);
+                }
+            });
+        }
+
+        // Funciones para el modal de certificados
+        function openCertModal(certId, title, pdfPath) {
+            const modal = document.getElementById('certModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const certViewer = document.getElementById('certViewer');
+            const downloadLink = document.getElementById('downloadLink');
+            
+            modalTitle.textContent = title;
+            downloadLink.href = pdfPath;
+            
+            // Mostrar modal inmediatamente con animaciones
+            modal.style.display = 'block';
+            modal.classList.add('cert-animation-active');
+            document.body.style.overflow = 'hidden';
+            
+            // Crear animación de íconos para el modal
+            createModalFloatingIcons(certId);
+            
+            // Cargar PDF con manejo de errores
+            certViewer.onload = function() {
+                console.log('PDF cargado correctamente');
+            };
+            
+            certViewer.onerror = function() {
+                console.log('Error al cargar PDF, mostrando mensaje alternativo');
+                certViewer.style.display = 'none';
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'pdf-error';
+                errorMsg.innerHTML = `
+                    <div class="error-content">
+                        <img src="assets/icons/DuoIconsCertificate.svg" alt="Certificado" class="error-icon">
+                        <h4>No se puede mostrar el certificado</h4>
+                        <p>El archivo PDF no se puede mostrar en el navegador, pero puedes descargarlo directamente.</p>
+                    </div>
+                `;
+                certViewer.parentNode.insertBefore(errorMsg, certViewer);
+            };
+            
+            certViewer.src = pdfPath + '#toolbar=1&navpanes=0&scrollbar=1';
+            certViewer.style.display = 'block';
+
+        }
+
+        function closeCertModal() {
+            const modal = document.getElementById('certModal');
+            const certViewer = document.getElementById('certViewer');
+            const errorMsg = document.querySelector('.pdf-error');
+            const modalFloatingContainer = document.querySelector('.modal-floating-icons');
+            
+            modal.style.display = 'none';
+            modal.classList.remove('cert-animation-active');
+            certViewer.src = '';
+            certViewer.style.display = 'block';
+            document.body.style.overflow = 'auto';
+            
+            // Remover mensaje de error si existe
+            if (errorMsg) {
+                errorMsg.remove();
+            }
+            
+            // Remover íconos flotantes del modal
+            if (modalFloatingContainer) {
+                modalFloatingContainer.remove();
+            }
+        }
+
+        // Función para crear íconos flotantes en el modal
+        function createModalFloatingIcons(certId) {
+            // Remover contenedor anterior si existe
+            const existingContainer = document.querySelector('.modal-floating-icons');
+            if (existingContainer) {
+                existingContainer.remove();
+            }
+            
+            // Crear nuevo contenedor
+            const floatingContainer = document.createElement('div');
+            floatingContainer.className = 'floating-icons-container modal-floating-icons';
+            document.body.appendChild(floatingContainer);
+            
+            // Obtener ícono específico del certificado
+            const iconSrc = certIconMap[certId] || 'assets/icons/DuoIconsCertificate.svg';
+            
+            // Crear múltiples íconos flotantes desde diferentes esquinas
+            for (let i = 0; i < 12; i++) {
+                setTimeout(() => {
+                    createRandomFloatingIcon(floatingContainer, iconSrc, i);
+                }, i * 300);
+            }
+        }
+
+        function createRandomFloatingIcon(container, iconSrc, index) {
+            const icon = document.createElement('img');
+            icon.src = iconSrc;
+            icon.className = `floating-icon direction-${(index % 4) + 1}`;
+            
+            // Posicionar aleatoriamente en los bordes de la pantalla
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            let startX, startY;
+            const side = index % 4;
+            
+            switch(side) {
+                case 0: // Desde arriba
+                    startX = Math.random() * windowWidth;
+                    startY = -50;
+                    break;
+                case 1: // Desde la derecha
+                    startX = windowWidth + 50;
+                    startY = Math.random() * windowHeight;
+                    break;
+                case 2: // Desde abajo
+                    startX = Math.random() * windowWidth;
+                    startY = windowHeight + 50;
+                    break;
+                case 3: // Desde la izquierda
+                    startX = -50;
+                    startY = Math.random() * windowHeight;
+                    break;
+            }
+            
+            icon.style.left = startX + 'px';
+            icon.style.top = startY + 'px';
+            
+            container.appendChild(icon);
+            
+            // Remover ícono después de la animación
+            setTimeout(() => {
+                if (icon.parentNode) {
+                    icon.parentNode.removeChild(icon);
+                }
+            }, 4000);
+        }
+
+        // Cerrar modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            const modal = document.getElementById('certModal');
+            if (event.target === modal) {
+                closeCertModal();
+            }
+        }
+
+        // Cerrar modal con tecla Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeCertModal();
+            }
+        });
+    </script>
 </head>
 <body>
-    <header>
-        <h1>Hola soy Isaac</h1>
-    </header>
-
     <main>
         <div id="divnav">
         <nav>
+
+            <button class="boton" onclick="showSection('inicio')">
+                <img class="icono" src="assets/icons/nav/homeL.svg" alt="">
+                <label class="etnav" for="">Inicio</label>
+            </button>
+
+            <button class="boton" onclick="showSection('sobre-mi')">
+                <img class="icono" src="assets/icons/DiplomaD.svg" alt="">
+                <label class="etnav" for="">Sobre mí</label>
+            </button>
             
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+            <button class="boton" onclick="showSection('portafolio')"> 
+                <img class="icono" src="assets/icons/SolarCodeFileBoldDuotone (1).svg" alt="">
+                <label class="etnav" for="">Portafolio</label>
+            </button>
+
+            <button class="boton" onclick="showSection('educacion')">
+                <img class="icono" src="assets/icons/SolarBook2BoldDuotone (1).svg" alt="">
+                <label class="etnav" for="">Educación</label>
+            </button>
+
+            <button class="boton" onclick="showSection('contacto')">
+                <img class="icono" src="assets/icons/MdiEmailMarkAsUnread.svg" alt="">
+                <label class="etnav" for="">Contacto</label>
+            </button>
        
         </nav>
         </div>
 
-
         <div class="content">
-            <h2>Welcome to My Page</h2>
-            <p>This is a simple HTML page with a header, navigation, and content area.</p>
+            <!-- SECCIÓN: INICIO -->
+            <div id="inicio" class="section-content active">
+                <!-- Hero Principal -->
+                <section class="hero-section">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <h1 class="hero-name">Isaac David Ricardo Orozco</h1>
+                            <h2 class="hero-title">Técnico en Desarrollo de Software</h2>
+                            <h3 class="hero-subtitle">Backend | Automatización | Análisis de datos</h3>
+                            <p class="hero-phrase">"Diseño soluciones prácticas con código limpio y visión analítica."</p>
+                            
+                            <div class="hero-buttons">
+                                <button class="btn btn-primary" onclick="showSection('portafolio')">Ver Portafolio</button>
+                                <button class="btn btn-secondary" onclick="showSection('contacto')">Contáctame</button>
+                                <a href="assets/cv/Isaac_Ricardo_CV.pdf" class="btn btn-outline" target="_blank">Descargar CV</a>
+                            </div>
+                        </div>
+                        <div class="hero-image">
+                            <img src="assets/img/fotos/fotosinfondo.png" alt="Isaac David Ricardo Orozco" class="profile-photo">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Resumen Sobre mí -->
+                <section class="about-preview">
+                    <div class="about-content">
+                        <h3 class="section-title">Sobre mí</h3>
+                        <p class="about-text">
+                            Actualmente me encuentro en etapa productiva del Técnico en Desarrollo de Software del SENA. 
+                            Me especializo en desarrollo backend, automatización de procesos y análisis de datos. 
+                            Me apasiona resolver problemas con lógica y estructura.
+                        </p>
+                        <button class="btn btn-outline" onclick="showSection('sobre-mi')">Conóceme mejor</button>
+                    </div>
+                </section>
+
+                <!-- Vista previa de Habilidades -->
+                <section class="skills-preview">
+                    <div class="skills-content">
+                        <h3 class="section-title">Habilidades Principales</h3>
+                        <div class="skills-chips">
+                            <span class="skill-chip">
+                                <img class="skill-icon" src="assets/icons/DeviconPlainPython.svg" alt="Python">
+                                Python
+                            </span>
+                            <span class="skill-chip">
+                                <img class="skill-icon" src="assets/icons/DeviconPlainJava.svg" alt="Java">
+                                Java
+                            </span>
+                            <span class="skill-chip">
+                                <img class="skill-icon" src="assets/icons/SimpleIconsPhp.svg" alt="PHP">
+                                PHP
+                            </span>
+                            <span class="skill-chip">
+                                <img class="skill-icon" src="assets/icons/icons8-c++.svg" alt="C++">
+                                C++
+                            </span>
+                            <span class="skill-chip">
+                                <img class="skill-icon" src="assets/icons/CibMysql.svg" alt="MySQL">
+                                MySQL
+                            </span>
+                            <span class="skill-chip">
+                                <img class="skill-icon" src="assets/icons/AkarIconsHtmlFill (1).svg" alt="HTML5">
+                                HTML5
+                            </span>
+                            <span class="skill-chip">
+                                <img class="skill-icon" src="assets/icons/DeviconPlainCss3Wordmark.svg" alt="CSS3">
+                                CSS3
+                            </span>
+                            <span class="skill-chip">
+                                <img class="skill-icon" src="assets/icons/PhGearSixFill.svg" alt="POO">
+                                POO
+                            </span>
+                            <span class="skill-chip">
+                                <img class="skill-icon" src="assets/icons/StreamlineUltimateMicrochipBoard.svg" alt="Análisis">
+                                Análisis de Datos
+                            </span>
+                            <span class="skill-chip">
+                                <img class="skill-icon" src="assets/icons/DuoIconsAndroid.svg" alt="App Inventor">
+                                App Inventor
+                            </span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Llamado a la Acción -->
+                <section class="cta-section">
+                    <div class="cta-content">
+                        <h3 class="cta-title">¿Listo para trabajar juntos? Hablemos.</h3>
+                        <div class="cta-buttons">
+                            <button class="btn btn-primary" onclick="showSection('contacto')">Contáctame</button>
+                            <a href="https://github.com/isaacricardo" class="btn btn-social" target="_blank">
+                                <img class="social-icon" src="assets/icons/StreamlineLogosDeviconLogoBlock.svg" alt="GitHub">
+                                GitHub
+                            </a>
+                            <a href="https://linkedin.com/in/isaacricardo" class="btn btn-social" target="_blank">
+                                <img class="social-icon" src="assets/icons/NimbusMarketing.svg" alt="LinkedIn">
+                                LinkedIn
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- SECCIÓN: SOBRE MÍ -->
+            <div id="sobre-mi" class="section-content">
+                <section class="about-full">
+                    <div class="about-header">
+                        <h1 class="section-main-title">Sobre mí</h1>
+                        <div class="about-intro">
+                            <div class="about-photo">
+                                <img src="assets/img/fotos/fotosinfondo.png" alt="Isaac David Ricardo Orozco" class="profile-photo-small">
+                            </div>
+                            <div class="about-text-intro">
+                                <h2>Isaac David Ricardo Orozco</h2>
+                                <h3>Técnico en Desarrollo de Software</h3>
+                                <p>Especialista en Backend, Automatización y Análisis de datos</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-details">
+                        <div class="about-story">
+                            <h3>Mi Historia</h3>
+                            <p>
+                                Actualmente me encuentro en etapa productiva del Técnico en Desarrollo de Software del SENA. 
+                                Mi pasión por la tecnología comenzó desde temprana edad, y he enfocado mi carrera en el desarrollo 
+                                de soluciones backend robustas y eficientes.
+                            </p>
+                            <p>
+                                Me especializo en crear sistemas que automatizan procesos complejos y facilitan el análisis de datos. 
+                                Disfruto resolviendo problemas complejos con código limpio y arquitecturas bien estructuradas.
+                            </p>
+                        </div>
+
+                        <div class="about-values">
+                            <h3>Mis Valores</h3>
+                            <div class="values-grid">
+                                <div class="value-item">
+                                    <h4>🎯 Precisión</h4>
+                                    <p>Código limpio y soluciones exactas</p>
+                                </div>
+                                <div class="value-item">
+                                    <h4>🚀 Innovación</h4>
+                                    <p>Siempre buscando mejores formas de hacer las cosas</p>
+                                </div>
+                                <div class="value-item">
+                                    <h4>📚 Aprendizaje</h4>
+                                    <p>Constante actualización en nuevas tecnologías</p>
+                                </div>
+                                <div class="value-item">
+                                    <h4>🤝 Colaboración</h4>
+                                    <p>Trabajo en equipo y comunicación efectiva</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- SECCIÓN: PORTAFOLIO -->
+            <div id="portafolio" class="section-content">
+                <section class="portfolio-full">
+                    <h1 class="section-main-title">Portafolio</h1>
+                    
+                    <!-- Proyectos Completos -->
+                    <div class="projects-section">
+                        <h2 class="subsection-title">Proyectos Destacados</h2>
+                        <div class="projects-grid-full">
+                            <!-- PROYECTO PRINCIPAL: AGRO SHOP -->
+                            <div class="project-card-full">
+                                <div class="project-header">
+                                    <h3>🌾 Agro Shop - Marketplace Agropecuario</h3>
+                                    <div class="project-links">
+                                        <a href="https://proyectoagroshop.free.nf/" target="_blank" class="btn btn-primary">🌐 Ver Sitio</a>
+                                        <a href="https://github.com/Mixer98/agro-shop" target="_blank" class="btn btn-outline">📂 Código</a>
+                                        <a href="https://www.youtube.com/watch?v=Z2i82MJGxlo&feature=youtu.be" target="_blank" class="btn btn-secondary">🎥 Video</a>
+                                    </div>
+                                </div>
+                                <p class="project-description-full">
+                                    <strong>🎓 Proyecto de Grado - Técnico en Desarrollo de Software SENA</strong><br>
+                                    Marketplace web completo que conecta productores agropecuarios con compradores, facilitando la gestión de productos, pedidos y ventas en un entorno digital accesible y funcional. Desarrollado como proyecto productivo de etapa práctica.
+                                </p>
+                                <div class="project-features">
+                                    <h4>🚀 Características principales:</h4>
+                                    <ul>
+                                        <li>💼 Marketplace completo para productos agropecuarios</li>
+                                        <li>👨‍🌾 Sistema de registro para productores y compradores</li>
+                                        <li>🛒 Gestión integral de productos, pedidos y ventas</li>
+                                        <li>📱 Interfaz web responsive y funcional</li>
+                                        <li>🔐 Sistema de autenticación y perfiles de usuario</li>
+                                        <li>💳 Módulo de procesamiento de pedidos</li>
+                                        <li>📊 Panel administrativo para gestión de contenido</li>
+                                    </ul>
+                                </div>
+                                <div class="project-tech">
+                                    <span class="tech-tag">PHP</span>
+                                    <span class="tech-tag">MySQL</span>
+                                    <span class="tech-tag">HTML5</span>
+                                    <span class="tech-tag">CSS3</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">Bootstrap</span>
+                                    <span class="tech-tag">Desarrollo Web</span>
+                                </div>
+                            </div>
+
+
+                            <div class="project-card-full">
+                                <div class="project-header">
+                                    <h3>🖥️ Sistema de Gestión con Java GUI</h3>
+                                    <div class="project-links">
+                                        <a href="#" class="btn btn-outline">Ver Demo</a>
+                                        <a href="#" class="btn btn-outline">Código</a>
+                                    </div>
+                                </div>
+                                <p class="project-description-full">
+                                    Aplicación de escritorio desarrollada en Java con interfaz gráfica completa, 
+                                    implementando programación orientada a objetos, manejo de eventos, clases y objetos. 
+                                    Sistema robusto con conexión a base de datos MySQL para persistencia de datos.
+                                </p>
+                                <div class="project-features">
+                                    <h4>⚙️ Características principales:</h4>
+                                    <ul>
+                                        <li>🖼️ Interfaz gráfica intuitiva con Swing/AWT</li>
+                                        <li>🎯 Manejo completo de eventos de usuario</li>
+                                        <li>🏗️ Arquitectura POO robusta y escalable</li>
+                                        <li>🗄️ Integración con base de datos MySQL</li>
+                                        <li>✅ Validación de datos y manejo de errores</li>
+                                        <li>👤 Sistema de usuarios y permisos</li>
+                                    </ul>
+                                </div>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Java</span>
+                                    <span class="tech-tag">Swing/AWT</span>
+                                    <span class="tech-tag">MySQL</span>
+                                    <span class="tech-tag">POO</span>
+                                    <span class="tech-tag">Aplicación Desktop</span>
+                                </div>
+                            </div>
+
+                            <div class="project-card-full">
+                                <div class="project-header">
+                                    <h3>📱 Aplicación Móvil con App Inventor</h3>
+                                    <div class="project-links">
+                                        <a href="#" class="btn btn-outline">Ver Demo</a>
+                                        <a href="#" class="btn btn-outline">Código</a>
+                                    </div>
+                                </div>
+                                <p class="project-description-full">
+                                    Desarrollo de aplicación móvil utilizando MIT App Inventor, implementando 
+                                    análisis de requisitos, diseño de interfaz intuitiva, lógica de programación 
+                                    visual y funcionalidades móviles nativas para gestión agropecuaria.
+                                </p>
+                                <div class="project-features">
+                                    <h4>📲 Características principales:</h4>
+                                    <ul>
+                                        <li>📱 Interfaz móvil optimizada y responsive</li>
+                                        <li>🧩 Lógica de programación visual con bloques</li>
+                                        <li>🔗 Integración con funciones nativas del dispositivo</li>
+                                        <li>💾 Almacenamiento local de datos</li>
+                                        <li>✅ Validación de entrada de usuario</li>
+                                        <li>🌐 Conectividad con servicios web</li>
+                                    </ul>
+                                </div>
+                                <div class="project-tech">
+                                    <span class="tech-tag">App Inventor</span>
+                                    <span class="tech-tag">Android</span>
+                                    <span class="tech-tag">Programación Visual</span>
+                                    <span class="tech-tag">Mobile UI</span>
+                                    <span class="tech-tag">Desarrollo Móvil</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Habilidades Técnicas Completas -->
+                    <div class="skills-section">
+                        <h2 class="subsection-title">Habilidades Técnicas</h2>
+                        <div class="skills-categories">
+                            <div class="skill-category">
+                                <h3>Lenguajes de Programación</h3>
+                                <div class="skills-chips">
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/DeviconPlainPython.svg" alt="Python">
+                                        Python
+                                    </span>
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/DeviconPlainJava.svg" alt="Java">
+                                        Java
+                                    </span>
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/SimpleIconsPhp.svg" alt="PHP">
+                                        PHP
+                                    </span>
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/icons8-c++.svg" alt="C++">
+                                        C++
+                                    </span>
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/BiJavascript (1).svg" alt="JavaScript">
+                                        JavaScript
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-category">
+                                <h3>Desarrollo Web y Bases de Datos</h3>
+                                <div class="skills-chips">
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/AkarIconsHtmlFill (1).svg" alt="HTML5">
+                                        HTML5
+                                    </span>
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/DeviconPlainCss3Wordmark.svg" alt="CSS3">
+                                        CSS3
+                                    </span>
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/CibMysql.svg" alt="SQL">
+                                        SQL
+                                    </span>
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/CibMysql.svg" alt="MySQL">
+                                        MySQL
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="skill-category">
+                                <h3>Programación Orientada a Objetos</h3>
+                                <div class="skills-chips">
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/PhGearSixFill.svg" alt="POO">
+                                        POO
+                                    </span>
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/SolarCodeFileBoldDuotone (1).svg" alt="Estructuras">
+                                        Estructuras de Datos
+                                    </span>
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/CerebroD.svg" alt="Lógica">
+                                        Lógica de Programación
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="skill-category">
+                                <h3>Análisis y Automatización</h3>
+                                <div class="skills-chips">
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/StreamlineUltimateMicrochipBoard.svg" alt="Análisis">
+                                        Análisis de Datos
+                                    </span>
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/PhGearSixFill.svg" alt="Automatización">
+                                        Automatización de Procesos
+                                    </span>
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/DeviconPlainPython.svg" alt="Python Data">
+                                        Python para Datos
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="skill-category">
+                                <h3>Desarrollo de Interfaces</h3>
+                                <div class="skills-chips">
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/PhMonitorDuotone.svg" alt="GUI Java">
+                                        GUI Java
+                                    </span>
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/PhMonitorDuotone.svg" alt="GUI C++">
+                                        GUI C++
+                                    </span>
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/DuoIconsAndroid.svg" alt="App Inventor">
+                                        App Inventor
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="skill-category">
+                                <h3>Conocimientos Adicionales</h3>
+                                <div class="skills-chips">
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/NimbusMarketing (2).svg" alt="Marketing">
+                                        Marketing Digital
+                                    </span>
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/StreamlineUltimateMicrochipBoard.svg" alt="Electrónica">
+                                        Electrónica Básica
+                                    </span>
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/TablerDeviceImacCog.svg" alt="Alfabetización">
+                                        Alfabetización Informática
+                                    </span>
+                                    <span class="skill-chip">
+                                        <img class="skill-icon" src="assets/icons/NimbusMarketing.svg" alt="Redes Sociales">
+                                        Redes Sociales
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- SECCIÓN: EDUCACIÓN -->
+            <div id="educacion" class="section-content">
+                <section class="education-full">
+                    <h1 class="section-main-title">Educación</h1>
+                    
+                    <!-- Formación Académica -->
+                    <div class="education-section">
+                        <h2 class="subsection-title">Formación Académica</h2>
+                        <div class="education-timeline">
+                            <div class="education-item">
+                                <div class="education-date">2023 - 2024</div>
+                                <div class="education-content">
+                                    <h3>Técnico en Desarrollo de Software</h3>
+                                    <h4>SENA (Servicio Nacional de Aprendizaje)</h4>
+                                    <p>
+                                        Programa técnico enfocado en desarrollo de aplicaciones, bases de datos, 
+                                        metodologías ágiles y buenas prácticas de programación. Actualmente en 
+                                        etapa productiva.
+                                    </p>
+                                    <div class="education-skills">
+                                        <span class="skill-tag">Programación Orientada a Objetos</span>
+                                        <span class="skill-tag">Bases de Datos</span>
+                                        <span class="skill-tag">Desarrollo Web</span>
+                                        <span class="skill-tag">Metodologías Ágiles</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certificaciones -->
+                    <div class="certifications-section">
+                        <h2 class="subsection-title">Certificaciones SENA</h2>
+                        <div class="certifications-grid">
+                            <div class="certification-card" onclick="openCertModal('metodologia', 'Metodología de la Programación de Sistemas Informáticos', 'docs/certificados/METODOLOGIA DE LA PROGRAMACION DE SISTEMAS INFORMATICOS.pdf')">
+                                <div class="cert-icon">
+                                    <img src="assets/icons/PhGearSixFill.svg" alt="Metodología" class="cert-image">
+                                </div>
+                                <h3>Metodología de la Programación</h3>
+                                <p>Sistemas Informáticos - Centro de Teleinformática y Producción Industrial</p>
+                                <span class="cert-year">Mar 2024</span>
+                                <button class="view-cert-btn">Ver Certificado</button>
+                            </div>
+
+                            <div class="certification-card" onclick="openCertModal('marketing', 'Marketing Digital', 'docs/certificados/MARKETING DIGITAL.pdf')">
+                                <div class="cert-icon">
+                                    <img src="assets/icons/NimbusMarketing (2).svg" alt="Marketing" class="cert-image">
+                                </div>
+                                <h3>Marketing Digital</h3>
+                                <p>Centro para la Industria Petroquímica, Regional Bolívar</p>
+                                <span class="cert-year">Nov 2023</span>
+                                <button class="view-cert-btn">Ver Certificado</button>
+                            </div>
+
+                            <div class="certification-card" onclick="openCertModal('python-analisis', 'Análisis Exploratorio de Datos en Python', 'docs/certificados/ANALISIS EXPLORATORIO DE DATOS EN PYTHON..pdf')">
+                                <div class="cert-icon">
+                                    <img src="assets/icons/DeviconPlainPython.svg" alt="Python" class="cert-image">
+                                </div>
+                                <h3>Análisis Exploratorio de Datos en Python</h3>
+                                <p>Análisis de datos con Python, Pandas y visualización - Regional Tolima</p>
+                                <span class="cert-year">Sep 2023</span>
+                                <button class="view-cert-btn">Ver Certificado</button>
+                            </div>
+
+                            <div class="certification-card" onclick="openCertModal('python-variables', 'Variables y Estructuras de Control en Python', 'docs/certificados/VARIABLES Y ESTRUCTURAS DE CONTROL EN PYTHON. (2).pdf')">
+                                <div class="cert-icon">
+                                    <img src="assets/icons/DeviconPlainPython.svg" alt="Python" class="cert-image">
+                                </div>
+                                <h3>Variables y Estructuras de Control en Python</h3>
+                                <p>Fundamentos de programación en Python - Regional Guaviare</p>
+                                <span class="cert-year">Ago 2023</span>
+                                <button class="view-cert-btn">Ver Certificado</button>
+                            </div>
+
+                            <div class="certification-card" onclick="openCertModal('mysql', 'Construcción de Bases de Datos con MySQL', 'docs/certificados/CONSTRUCCION DE BASES DE DATOS CON MYSQL. (2).pdf')">
+                                <div class="cert-icon">
+                                    <img src="assets/icons/CibMysql.svg" alt="MySQL" class="cert-image">
+                                </div>
+                                <h3>Construcción de Bases de Datos con MySQL</h3>
+                                <p>Gestión y administración de bases de datos - Regional Distrito Capital</p>
+                                <span class="cert-year">Dic 2022</span>
+                                <button class="view-cert-btn">Ver Certificado</button>
+                            </div>
+
+                            <div class="certification-card" onclick="openCertModal('cpp3', 'Uso de Clases, Objetos y Métodos en C++ (Nivel III)', 'docs/certificados/USO DE CLASES, OBJETOS, METODOS Y ARCHIVOS SECUENCIALES EN POO CON LENGUAJE DE PROGRAMACION C++ (NIVEL III) (2).pdf')">
+                                <div class="cert-icon">
+                                    <img src="assets/icons/icons8-c++.svg" alt="C++" class="cert-image">
+                                </div>
+                                <h3>C++ POO Nivel III</h3>
+                                <p>Clases, objetos, métodos y archivos secuenciales - Regional Valle</p>
+                                <span class="cert-year">Sep 2022</span>
+                                <button class="view-cert-btn">Ver Certificado</button>
+                            </div>
+
+                            <div class="certification-card" onclick="openCertModal('cpp2', 'Módulos y POO en C++ (Nivel II)', 'docs/certificados/MODULOS, ESTRUCTURA DE ALMACENAMIENTO Y POO UTILIZANDO EL LENGUAJE DE PROGRAMACION C++ (NIVEL II).pdf')">
+                                <div class="cert-icon">
+                                    <img src="assets/icons/icons8-c++.svg" alt="C++" class="cert-image">
+                                </div>
+                                <h3>C++ POO Nivel II</h3>
+                                <p>Módulos, estructura de almacenamiento y POO - Regional Guaviare</p>
+                                <span class="cert-year">Jun 2022</span>
+                                <button class="view-cert-btn">Ver Certificado</button>
+                            </div>
+
+                            <div class="certification-card" onclick="openCertModal('cpp1', 'Estructura del Lenguaje C++ (Nivel I)', 'docs/certificados/ESTRUCTURA DEL LENGUAJE DE PROGRAMACION C++ (NIVEL I).pdf')">
+                                <div class="cert-icon">
+                                    <img src="assets/icons/icons8-c++.svg" alt="C++" class="cert-image">
+                                </div>
+                                <h3>C++ Estructura Nivel I</h3>
+                                <p>Fundamentos y estructura del lenguaje C++ - Regional Guaviare</p>
+                                <span class="cert-year">Abr 2022</span>
+                                <button class="view-cert-btn">Ver Certificado</button>
+                            </div>
+
+                            <div class="certification-card" onclick="openCertModal('appinventor', 'Análisis para Desarrollo Móvil con App Inventor', 'docs/certificados/ANALISIS PARA EL DESARROLLO MOVIL CON APP INVENTOR (2).pdf')">
+                                <div class="cert-icon">
+                                    <img src="assets/icons/DuoIconsAndroid.svg" alt="App Inventor" class="cert-image">
+                                </div>
+                                <h3>Desarrollo Móvil con App Inventor</h3>
+                                <p>Análisis y desarrollo de aplicaciones móviles - Regional Magdalena</p>
+                                <span class="cert-year">Abr 2022</span>
+                                <button class="view-cert-btn">Ver Certificado</button>
+                            </div>
+
+                            <div class="certification-card" onclick="openCertModal('java-variables', 'Variables y Estructuras de Control en POO Java', 'docs/certificados/VARIABLES Y ESTRUCTURAS DE CONTROL EN LA PROGRAMACION ORIENTADA A OBJETOS JAVA.pdf')">
+                                <div class="cert-icon">
+                                    <img src="assets/icons/DeviconPlainJava.svg" alt="Java" class="cert-image">
+                                </div>
+                                <h3>Variables y Estructuras Java POO</h3>
+                                <p>Programación orientada a objetos en Java - Regional Atlántico</p>
+                                <span class="cert-year">Mar 2022</span>
+                                <button class="view-cert-btn">Ver Certificado</button>
+                            </div>
+
+                            <div class="certification-card" onclick="openCertModal('php', 'Desarrollo Web con PHP', 'docs/certificados/DESARROLLO WEB CON PHP (2).pdf')">
+                                <div class="cert-icon">
+                                    <img src="assets/icons/SimpleIconsPhp.svg" alt="PHP" class="cert-image">
+                                </div>
+                                <h3>Desarrollo Web con PHP</h3>
+                                <p>Desarrollo backend con PHP y bases de datos - Regional Norte de Santander</p>
+                                <span class="cert-year">Dic 2021</span>
+                                <button class="view-cert-btn">Ver Certificado</button>
+                            </div>
+
+                            <div class="certification-card" onclick="openCertModal('java-gui', 'Desarrollo de Aplicaciones con Java', 'docs/certificados/DESARROLLO DE APLICACIONES CON INTERFAZ GRAFICA, MANEJO DE EVENTOS, CLASES Y OBJETOS JAVA.pdf')">
+                                <div class="cert-icon">
+                                    <img src="assets/icons/DeviconPlainJava.svg" alt="Java GUI" class="cert-image">
+                                </div>
+                                <h3>Aplicaciones Java con GUI</h3>
+                                <p>Interfaz gráfica, eventos, clases y objetos - Regional Risaralda</p>
+                                <span class="cert-year">Nov 2021</span>
+                                <button class="view-cert-btn">Ver Certificado</button>
+                            </div>
+
+                            <div class="certification-card" onclick="openCertModal('cpp-conceptos', 'Conceptualización del Lenguaje C++', 'docs/certificados/CONCEPTUALIZACION DEL LENGUAJE DE PROGRAMACION C++.pdf')">
+                                <div class="cert-icon">
+                                    <img src="assets/icons/icons8-c++.svg" alt="C++ Conceptos" class="cert-image">
+                                </div>
+                                <h3>Conceptualización C++</h3>
+                                <p>Fundamentos y conceptos básicos de C++ - Regional Risaralda</p>
+                                <span class="cert-year">Nov 2021</span>
+                                <button class="view-cert-btn">Ver Certificado</button>
+                            </div>
+
+                            <div class="certification-card" onclick="openCertModal('electronica', 'Principios de Electrónica', 'docs/certificados/PRINCIPIOS DE ELECTRONICA.pdf')">
+                                <div class="cert-icon">
+                                    <img src="assets/icons/StreamlineUltimateMicrochipBoard.svg" alt="Electrónica" class="cert-image">
+                                </div>
+                                <h3>Principios de Electrónica</h3>
+                                <p>Fundamentos de electrónica básica - Regional Córdoba</p>
+                                <span class="cert-year">Jul 2017</span>
+                                <button class="view-cert-btn">Ver Certificado</button>
+                            </div>
+
+                            <div class="certification-card" onclick="openCertModal('informatica', 'Alfabetización Informática', 'docs/certificados/ALFABETIZACIÓN INFORMÁTICA.pdf')">
+                                <div class="cert-icon">
+                                    <img src="assets/icons/TablerDeviceImacCog (1).svg" alt="Informática" class="cert-image">
+                                </div>
+                                <h3>Alfabetización Informática</h3>
+                                <p>Fundamentos de tecnologías de la información y herramientas digitales</p>
+                                <span class="cert-year">SENA</span>
+                                <button class="view-cert-btn">Ver Certificado</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cursos Complementarios -->
+                    <div class="courses-section">
+                        <h2 class="subsection-title">Especialización por Áreas</h2>
+                        <div class="courses-list">
+                            <div class="course-item">
+                                <h4>Programación en Python</h4>
+                                <p>Variables, estructuras de control, análisis exploratorio de datos, Pandas, visualización</p>
+                            </div>
+                            <div class="course-item">
+                                <h4>Desarrollo Backend con PHP</h4>
+                                <p>Desarrollo web, integración con bases de datos MySQL, aplicaciones robustas</p>
+                            </div>
+                            <div class="course-item">
+                                <h4>Programación Orientada a Objetos</h4>
+                                <p>Java y C++ - Clases, objetos, herencia, polimorfismo, interfaces gráficas</p>
+                            </div>
+                            <div class="course-item">
+                                <h4>Gestión de Bases de Datos</h4>
+                                <p>MySQL, diseño de esquemas, consultas complejas, optimización</p>
+                            </div>
+                            <div class="course-item">
+                                <h4>Desarrollo de Aplicaciones Móviles</h4>
+                                <p>App Inventor - Análisis, diseño y desarrollo de aplicaciones móviles</p>
+                            </div>
+                            <div class="course-item">
+                                <h4>Metodología de Programación</h4>
+                                <p>Sistemas informáticos, buenas prácticas, metodologías de desarrollo</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- SECCIÓN: CONTACTO -->
+            <div id="contacto" class="section-content">
+                <section class="contact-full">
+                    <h1 class="section-main-title">Contacto</h1>
+                    
+                    <div class="contact-intro">
+                        <h2>¿Listo para trabajar juntos?</h2>
+                        <p>Me encanta conectar con personas que comparten la pasión por la tecnología y la innovación. 
+                           No dudes en contactarme para discutir proyectos, oportunidades o simplemente para charlar sobre desarrollo.</p>
+                    </div>
+
+                    <div class="contact-content">
+                        <!-- Información de Contacto -->
+                        <div class="contact-info">
+                            <h3>Información de Contacto</h3>
+                            <div class="contact-methods">
+                                <div class="contact-method">
+                                    <img src="assets/icons/MdiEmailMarkAsUnread.svg" alt="Email" class="contact-icon">
+                                    <div class="contact-details">
+                                        <h4>Email</h4>
+                                        <p>isaac.ricardo@example.com</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="contact-method">
+                                    <img src="assets/icons/SolarPhoneCallingBoldDuotone.svg" alt="Teléfono" class="contact-icon">
+                                    <div class="contact-details">
+                                        <h4>Teléfono</h4>
+                                        <p>+57 (xxx) xxx-xxxx</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="contact-method">
+                                    <img src="assets/icons/NimbusMarketing.svg" alt="LinkedIn" class="contact-icon">
+                                    <div class="contact-details">
+                                        <h4>LinkedIn</h4>
+                                        <p>linkedin.com/in/isaacricardo</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="contact-method">
+                                    <img src="assets/icons/StreamlineLogosDeviconLogoBlock.svg" alt="GitHub" class="contact-icon">
+                                    <div class="contact-details">
+                                        <h4>GitHub</h4>
+                                        <p>github.com/isaacricardo</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulario de Contacto -->
+                        <div class="contact-form">
+                            <h3>Envíame un mensaje</h3>
+                            <form class="form">
+                                <div class="form-group">
+                                    <label for="name">Nombre</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="subject">Asunto</label>
+                                    <input type="text" id="subject" name="subject" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="message">Mensaje</label>
+                                    <textarea id="message" name="message" rows="5" required></textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Enlaces Sociales -->
+                    <div class="social-links">
+                        <h3>Sígueme en redes</h3>
+                        <div class="social-buttons">
+                            <a href="https://github.com/isaacricardo" class="btn btn-social" target="_blank">
+                                <img class="social-icon" src="assets/icons/StreamlineLogosDeviconLogoBlock.svg" alt="GitHub">
+                                GitHub
+                            </a>
+                            <a href="https://linkedin.com/in/isaacricardo" class="btn btn-social" target="_blank">
+                                <img class="social-icon" src="assets/icons/NimbusMarketing.svg" alt="LinkedIn">
+                                LinkedIn
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </main>
-    <footer>
-        <p>&copy; 2023 My Website</p>
-    </footer>
+
+    <!-- Modal para mostrar certificados -->
+    <div id="certModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Certificado</h3>
+                <span class="close" onclick="closeCertModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <iframe id="certViewer" src="" width="100%" height="500px" frameborder="0"></iframe>
+                <div class="modal-actions">
+                    <a id="downloadLink" href="" target="_blank" class="btn btn-primary">Descargar PDF</a>
+                    <button class="btn btn-secondary" onclick="closeCertModal()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
