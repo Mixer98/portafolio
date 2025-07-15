@@ -1621,7 +1621,230 @@ section {
     }
 }
 
+/* === RESPONSIVE MÓVILES PEQUEÑOS (hasta 480px) === */
 @media (max-width: 480px) {
+    /* === LAYOUT EXTRA PEQUEÑO === */
+    body {
+        font-size: 13px;
+    }
+    
+    .content {
+        padding: 70px 10px 15px 10px; /* Menos padding-top porque nav es más pequeña */
+        margin: 0;
+    }
+    
+    /* === NAVEGACIÓN EXTRA PEQUEÑA === */
+    #divnav {
+        height: 55px; /* Navegación más compacta */
+        padding: 8px 10px;
+    }
+    
+    nav {
+        max-width: 350px; /* Limitar ancho en pantallas pequeñas */
+    }
+    
+    .boton {
+        min-width: 55px;
+        padding: 6px 4px;
+    }
+    
+    .icono {
+        height: 20px;
+        width: 20px;
+        min-width: 20px;
+        margin-bottom: 2px;
+    }
+    
+    .boton label {
+        font-size: 10px;
+        line-height: 1;
+    }
+    
+    /* === TÍTULOS EXTRA PEQUEÑOS === */
+    .section-main-title {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+    
+    .subsection-title {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+    
+    .section-title {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+    }
+    
+    /* === HERO EXTRA PEQUEÑO === */
+    .hero-section {
+        padding: 20px 0;
+    }
+    
+    .hero-content {
+        gap: 20px;
+    }
+    
+    .hero-name {
+        font-size: 1.7rem;
+        line-height: 1.1;
+    }
+    
+    .hero-title {
+        font-size: 1.2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .hero-phrase {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+    
+    .hero-buttons .btn {
+        width: 90%;
+        max-width: 220px;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .profile-photo {
+        width: 160px;
+    }
+    
+    /* === SECCIONES EXTRA PEQUEÑAS === */
+    .about-preview,
+    .skills-preview {
+        padding: 20px 10px;
+    }
+    
+    .about-intro {
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .profile-photo-small {
+        width: 80px;
+        height: 80px;
+    }
+    
+    /* === TARJETAS EXTRA PEQUEÑAS === */
+    .certification-card,
+    .project-card-full,
+    .project-card,
+    .skill-category,
+    .value-item {
+        padding: 15px 10px;
+    }
+    
+    .certification-card {
+        min-height: 200px;
+    }
+    
+    .cert-icon {
+        height: 60px;
+        margin-bottom: 10px;
+    }
+    
+    .cert-image {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .certification-card h3 {
+        font-size: 1.1rem;
+        min-height: 50px;
+        line-height: 1.2;
+    }
+    
+    .certification-card p {
+        font-size: 0.85rem;
+    }
+    
+    /* === PROYECTOS EXTRA PEQUEÑOS === */
+    .project-header h3 {
+        font-size: 1.2rem;
+        line-height: 1.2;
+    }
+    
+    .project-links .btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        max-width: 180px;
+    }
+    
+    .project-description_full {
+        font-size: 0.9rem;
+    }
+    
+    .project-features h4 {
+        font-size: 0.95rem;
+    }
+    
+    .project-features li {
+        font-size: 0.85rem;
+        padding: 3px 0;
+    }
+    
+    .tech-tag {
+        padding: 3px 6px;
+        font-size: 0.75rem;
+    }
+    
+    /* === SKILLS EXTRA PEQUEÑAS === */
+    .skill-chip {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+    
+    .skill-icon {
+        height: 20px;
+        width: 20px;
+    }
+    
+    /* === CONTACTO EXTRA PEQUEÑO === */
+    .contact-intro {
+        padding: 20px 15px;
+    }
+    
+    .contact-intro h2 {
+        font-size: 1.4rem;
+    }
+    
+    .contact-intro p {
+        font-size: 0.9rem;
+    }
+    
+    .contact-method {
+        padding: 10px;
+    }
+    
+    .contact-icon {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .contact-details h4 {
+        font-size: 1rem;
+    }
+    
+    .contact-details p {
+        font-size: 0.85rem;
+    }
+    
+    .form-group label {
+        font-size: 0.9rem;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        padding: 8px;
+        font-size: 16px;
+    }
+    
+    /* === MODAL EXTRA PEQUEÑO === */
     .modal-content {
         width: 98%;
         margin: 2% auto;
@@ -1642,114 +1865,771 @@ section {
     }
     
     .modal-body iframe {
-        height: 350px;
+        height: 250px;
+    }
+    
+    .modal-actions .btn {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .close {
+        font-size: 24px;
+    }
+    
+    /* === EDUCACIÓN EXTRA PEQUEÑA === */
+    .education-timeline {
+        padding-left: 15px;
+    }
+    
+    .education-item {
+        padding: 15px 10px;
+        margin-bottom: 15px;
+    }
+    
+    .education-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    .education-content h4 {
+        font-size: 1rem;
+    }
+    
+    .education-content p {
+        font-size: 0.85rem;
+    }
+    
+    .education-date {
+        font-size: 0.85rem;
+    }
+    
+    /* === CTA EXTRA PEQUEÑA === */
+    .cta-section {
+        padding: 25px 15px;
+    }
+    
+    .cta-title {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        line-height: 1.3;
+    }
+    
+    /* === BOTONES GENERALES EXTRA PEQUEÑOS === */
+    .btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .btn-primary,
+    .btn-secondary,
+    .btn-outline,
+    .btn-social {
+        width: 100%;
+        max-width: 200px;
+        justify-content: center;
+    }
+    
+    /* === ANIMACIONES EXTRA PEQUEÑAS === */
+    .floating-icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .cert-floating-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* === ESPACIADO EXTRA PEQUEÑO === */
+    section {
+        margin-bottom: 30px;
+        padding: 15px 0;
+    }
+    
+    .about-details {
+        gap: 25px;
+    }
+    
+    .values-grid,
+    .certifications-grid,
+    .projects-grid-full,
+    .skills-categories {
+        gap: 12px;
     }
 }
 
 /* === RESPONSIVE MEJORADO PARA ESCALABILIDAD === */
+
+/* === RESPONSIVE MÓVILES (hasta 768px) - UNA SOLA COLUMNA === */
 @media (max-width: 768px) {
+    /* === LAYOUT GENERAL === */
+    body {
+        font-size: 14px;
+    }
+    
+    .content {
+        margin-left: 0; /* Sin margen porque la nav será superior */
+        padding: 80px 15px 20px 15px; /* Padding-top para compensar nav superior */
+        margin: 0;
+        width: 100%;
+    }
+    
+    /* === NAVEGACIÓN MÓVIL SUPERIOR === */
+    #divnav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Centrar el nav */
+        transition: none;
+        padding: 10px 15px;
+        z-index: 1001;
+        background: transparent; /* Sin fondo en el contenedor */
+    }
+    
+    #divnav:hover {
+        width: 100%; /* No cambiar ancho */
+    }
+    
+    nav {
+        width: auto; /* Mantener ancho automático */
+        max-width: 400px; /* Limitar ancho máximo */
+        background-color: rgba(255, 251, 222, 0.4); /* Mismo fondo que desktop */
+        backdrop-filter: blur(10px); /* Mismo blur que desktop */
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 15px; /* Mantener border-radius */
+        display: flex;
+        flex-direction: row;
+        gap: 2px;
+        padding: 5px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Misma sombra que desktop */
+        justify-content: space-around;
+        align-items: center;
+    }
+    
+    .boton {
+        display: flex;
+        flex-direction: column; /* Icono arriba, texto abajo */
+        align-items: center;
+        height: auto;
+        width: auto;
+        min-width: 60px; /* Ancho mínimo para toque */
+        border: none;
+        background-color: transparent;
+        border-radius: 10px; /* Mantener border-radius original */
+        padding: 8px 5px; /* Más padding vertical */
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+    
+    .boton:hover {
+        background-color: var(--color-secondary); /* Mismo hover que desktop */
+    }
+    
+    .boton:hover .icono {
+        filter: drop-shadow(0 0 8px var(--color-background)); /* Mismo efecto que desktop */
+    }
+    
+    .icono {
+        height: 22px; /* Tamaño intermedio */
+        width: 22px;
+        min-width: 22px;
+        transition: filter 0.3s ease; /* Misma transición que desktop */
+        margin-bottom: 3px; /* Espacio entre icono y texto */
+    }
+    
+    .boton label {
+        display: block !important; /* Siempre mostrar en móvil */
+        color: var(--color-text); /* Mismo color que desktop */
+        font-size: 11px; /* Tamaño legible pero compacto */
+        font-weight: 500; /* Mismo peso que desktop */
+        white-space: nowrap;
+        margin-left: 0;
+        cursor: pointer;
+        text-align: center;
+        line-height: 1.1;
+    }
+    
+    .boton.active {
+        background-color: var(--color-primary); /* Mismo estado activo */
+        color: white;
+    }
+    
+    .boton.active .icono {
+        filter: brightness(0) invert(1); /* Mismo efecto activo */
+    }
+    
+    .boton.active label {
+        color: white; /* Mismo color activo */
+    }
+    
+    /* === TÍTULOS MÓVILES === */
     .section-main-title {
-        font-size: 2.2rem;
+        font-size: 2rem;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+    
+    .subsection-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    .section-title {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    
+    /* === HERO SECTION MÓVIL === */
+    .hero-section {
+        padding: 30px 0;
+        text-align: center;
+    }
+    
+    .hero-content {
+        flex-direction: column;
+        gap: 25px;
+        align-items: center;
+    }
+    
+    .hero-text {
+        min-width: auto;
+        text-align: center;
+        order: 2;
+    }
+    
+    .hero-image {
+        flex: none;
+        order: 1;
+    }
+    
+    .hero-name {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+    
+    .hero-title {
+        font-size: 1.4rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .hero-phrase {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .hero-buttons .btn {
+        width: 80%;
+        max-width: 250px;
+        justify-content: center;
+    }
+    
+    .profile-photo {
+        width: 200px;
+    }
+    
+    /* === ABOUT SECTION MÓVIL === */
+    .about-preview {
+        padding: 25px 15px;
+        text-align: center;
     }
     
     .about-intro {
         flex-direction: column;
         text-align: center;
+        gap: 20px;
+        padding: 20px;
     }
     
-    .project-header {
-        flex-direction: column;
-        align-items: flex-start;
+    .about-photo {
+        flex: none;
+        align-self: center;
     }
     
-    .contact-content {
-        grid-template-columns: 1fr;
-        gap: 30px;
+    .profile-photo-small {
+        width: 100px;
+        height: 100px;
     }
     
-    /* Grids escalables en móviles */
+    /* === SKILLS SECTION MÓVIL === */
+    .skills-preview {
+        padding: 25px 15px;
+    }
+    
+    .skills-chips {
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .skill-chip {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+    
+    /* === GRIDS - UNA SOLA COLUMNA === */
     .values-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
         gap: 15px;
     }
     
     .certifications-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
         gap: 20px;
     }
     
     .projects-grid-full {
-        grid-template-columns: 1fr;
-        gap: 25px;
-    }
-    
-    .skills-categories {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
         gap: 20px;
     }
     
-    .social-buttons {
-        flex-direction: column;
-        align-items: center;
+    .skills-categories {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
     }
     
-    /* Ajustes específicos para móviles */
+    .projects-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px;
+    }
+    
+    /* === TARJETAS MÓVILES === */
     .certification-card {
-        min-height: 240px;
-        padding: 20px;
+        min-height: 220px;
+        padding: 20px 15px;
+        text-align: center;
     }
     
     .project-card-full {
-        min-height: 350px;
-        padding: 25px;
+        min-height: auto;
+        padding: 20px 15px;
+    }
+    
+    .project-card {
+        padding: 20px 15px;
     }
     
     .skill-category {
-        min-height: 150px;
-        padding: 20px;
+        min-height: auto;
+        padding: 20px 15px;
     }
     
     .value-item {
-        min-height: 120px;
+        min-height: 100px;
+        padding: 15px 10px;
+    }
+    
+    /* === PROJECT HEADERS MÓVIL === */
+    .project-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .project-header h3 {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+    
+    .project-links {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+        align-items: center;
+    }
+    
+    .project-links .btn {
+        width: 100%;
+        max-width: 200px;
+        justify-content: center;
+    }
+    
+    /* === CONTACTO MÓVIL === */
+    .contact-content {
+        grid-template-columns: 1fr !important;
+        gap: 30px;
+    }
+    
+    .contact-methods {
+        gap: 15px;
+    }
+    
+    .contact-method {
+        padding: 12px;
+    }
+    
+    .form {
+        gap: 15px;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        padding: 10px;
+        font-size: 16px; /* Evita zoom en iOS */
+    }
+    
+    /* === BOTONES SOCIALES MÓVIL === */
+    .social-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .social-buttons .btn {
+        width: 80%;
+        max-width: 200px;
+        justify-content: center;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .cta-buttons .btn {
+        width: 80%;
+        max-width: 200px;
+        justify-content: center;
+    }
+    
+    /* === EDUCACIÓN MÓVIL === */
+    .education-timeline {
+        padding-left: 20px;
+    }
+    
+    .education-item {
         padding: 20px 15px;
+        margin-bottom: 20px;
+    }
+    
+    .education-item:before {
+        left: -27px;
+        width: 10px;
+        height: 10px;
+    }
+    
+    .education-timeline:before {
+        left: 10px;
+    }
+    
+    .education-skills {
+        gap: 6px;
+    }
+    
+    .skill-tag {
+        padding: 3px 8px;
+        font-size: 0.8rem;
+    }
+    
+    /* === TEXTOS MÓVILES === */
+    .project-description-full,
+    .about-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    .project-features h4 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+    
+    .project-features ul {
+        font-size: 0.9rem;
+    }
+    
+    .project-tech {
+        gap: 6px;
+        margin-top: 15px;
+        justify-content: center;
+    }
+    
+    .tech-tag {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+    }
+    
+    /* === MODAL MÓVIL === */
+    .modal-content {
+        width: 95%;
+        margin: 5% auto;
+        max-height: 85vh;
+    }
+    
+    .modal-header {
+        padding: 15px 20px;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .modal-body {
+        padding: 20px;
+    }
+    
+    .modal-body iframe {
+        height: 300px;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    
+    .close {
+        font-size: 28px;
+    }
+    
+    /* === CTA SECTION MÓVIL === */
+    .cta-section {
+        padding: 30px 20px;
+        text-align: center;
+    }
+    
+    .cta-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+    
+    /* === SECCIONES GENERALES MÓVIL === */
+    section {
+        margin-bottom: 40px;
+        padding: 20px 0;
+    }
+    
+    .about-preview,
+    .projects-preview,
+    .skills-preview {
+        margin: 20px 0;
+    }
+    
+    /* === ANIMACIONES MÓVILES === */
+    .floating-icon {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .cert-floating-icon {
+        width: 22px;
+        height: 22px;
     }
 }
 
-/* === RESPONSIVE PARA TABLETS === */
-@media (min-width: 769px) and (max-width: 1024px) {
+/* === RESPONSIVE ADICIONAL PARA MÓVILES === */
+
+/* === ASEGURAR UNA SOLA COLUMNA EN TODOS LOS GRIDS === */
+@media (max-width: 768px) {
+    /* Forzar una sola columna en TODOS los grids */
+    .grid-auto-fit-small,
+    .grid-auto-fit-medium,
+    .grid-auto-fit-large {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+    
+    /* Flexbox containers que deben ser columna */
+    .hero-buttons,
+    .project-links,
+    .social-buttons,
+    .cta-buttons,
+    .contact-methods {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    /* === NAVEGACIÓN MÓVIL MEJORADA === */
+    .boton:focus {
+        background-color: rgba(144, 209, 202, 0.5);
+        outline: 2px solid var(--color-primary);
+        outline-offset: 1px;
+    }
+    
+    /* === MEJORAS DE ACCESIBILIDAD MÓVIL === */
+    
+    /* Botones más grandes para touch */
+    .btn {
+        min-height: 44px; /* Recomendación de accesibilidad móvil */
+        min-width: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Iconos más visibles */
+    .skill-icon,
+    .social-icon,
+    .contact-icon {
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+    }
+    
+    /* Enlaces más espaciados */
+    .project-links a,
+    .social-buttons a,
+    .cta-buttons a,
+    .cta-buttons button {
+        margin: 5px 0;
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    /* === TEXTOS LEGIBLES EN MÓVIL === */
+    .about-text,
+    .project-description,
+    .project-description-full,
+    .contact-intro p {
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    
+    /* === ESPACIADO MÓVIL MEJORADO === */
+    .hero-section,
+    .about-preview,
+    .skills-preview,
+    .cta-section {
+        margin: 15px 0;
+    }
+    
+    .projects-section,
+    .skills-section,
+    .education-section,
+    .certifications-section,
+    .courses-section {
+        margin-bottom: 40px;
+    }
+    
+    /* === OVERFLOW HANDLING === */
+    .project-tech,
+    .skills-chips,
+    .education-skills {
+        overflow-x: auto;
+        padding-bottom: 5px;
+    }
+    
+    /* === FOCUS STATES MEJORADOS PARA MÓVIL === */
+    .btn:focus,
+    input:focus,
+    textarea:focus {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+    
+    /* === CERTIFICADOS MÓVIL ESPECÍFICO === */
+    .certification-card {
+        transition: transform 0.2s ease; /* Animación más rápida en móvil */
+    }
+    
+    .certification-card:hover,
+    .certification-card:focus {
+        transform: translateY(-2px); /* Menos movimiento en móvil */
+    }
+    
+    /* === MODAL RESPONSIVE ADICIONAL === */
+    .modal {
+        padding: 10px;
+    }
+    
+    .modal-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+    
+    /* === EDUCACIÓN TIMELINE MÓVIL === */
+    .education-timeline:before {
+        left: 8px; /* Línea más hacia la izquierda */
+    }
+    
+    .education-item:before {
+        left: -25px; /* Ajustar punto de timeline */
+    }
+    
+    /* === VALORES Y SKILLS MÓVIL === */
+    .value-item h4,
+    .skill-category h3 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    
+    .value-item p {
+        text-align: center;
+        font-size: 0.9rem;
+    }
+}
+
+/* === LANDSCAPE MÓVIL (orientación horizontal) === */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero-content {
+        flex-direction: row;
+        gap: 30px;
+    }
+    
+    .hero-text {
+        order: 1;
+    }
+    
+    .hero-image {
+        order: 2;
+        flex: 0 0 200px;
+    }
+    
+    .profile-photo {
+        width: 180px;
+    }
+    
+    .hero-name {
+        font-size: 1.8rem;
+    }
+    
+    .hero-title {
+        font-size: 1.3rem;
+    }
+    
+    .modal-body iframe {
+        height: 200px;
+    }
+}
+
+/* === PANTALLAS MUY GRANDES === */
+@media (min-width: 1400px) {
+    .content {
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 120px;
+    }
+    
     .certifications-grid {
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 30px;
     }
     
     .projects-grid-full {
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        gap: 40px;
+    }
+    
+    .skills-categories {
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
         gap: 30px;
-    }
-    
-    .skills-categories {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
-    }
-    
-    .values-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-}
-
-/* === RESPONSIVE PARA PANTALLAS GRANDES === */
-@media (min-width: 1400px) {
-    .certifications-grid {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 30px;
-    }
-    
-    .projects-grid-full {
-        grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-    }
-    
-    .skills-categories {
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     }
 }
 

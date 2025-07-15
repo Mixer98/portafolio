@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <title>Isaac Ricardo - Portafolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Isaac David Ricardo Orozco - Técnico en Desarrollo de Software especializado en Backend, Automatización y Análisis de datos">
+    <meta name="keywords" content="desarrollador, software, backend, python, java, php, mysql, programación">
+    <meta name="author" content="Isaac David Ricardo Orozco">
+    <title>Isaac Ricardo - Portafolio | Técnico en Desarrollo de Software</title>
     
     <!-- Google Fonts - Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,6 +44,12 @@
                     activeButton.classList.add('active');
                 }
             }
+            
+            // Scroll suave hacia arriba al cambiar de sección
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
             
             // Reinicializar efectos de hover si estamos en la sección de educación
             if (sectionId === 'educacion') {
@@ -465,11 +475,11 @@
                         <h3 class="cta-title">¿Listo para trabajar juntos? Hablemos.</h3>
                         <div class="cta-buttons">
                             <button class="btn btn-primary" onclick="showSection('contacto')">Contáctame</button>
-                            <a href="https://github.com/isaacricardo" class="btn btn-social" target="_blank">
+                            <a href="https://github.com/Mixer98" class="btn btn-social" target="_blank">
                                 <img class="social-icon" src="assets/icons/StreamlineLogosDeviconLogoBlock.svg" alt="GitHub">
                                 GitHub
                             </a>
-                            <a href="https://linkedin.com/in/isaacricardo" class="btn btn-social" target="_blank">
+                            <a href="https://linkedin.com/in/isaac-ricardo-dev" class="btn btn-social" target="_blank">
                                 <img class="social-icon" src="assets/icons/NimbusMarketing.svg" alt="LinkedIn">
                                 LinkedIn
                             </a>
@@ -1011,85 +1021,63 @@
                            No dudes en contactarme para discutir proyectos, oportunidades o simplemente para charlar sobre desarrollo.</p>
                     </div>
 
-                    <div class="contact-content">
-                        <!-- Información de Contacto -->
-                        <div class="contact-info">
-                            <h3>Información de Contacto</h3>
-                            <div class="contact-methods">
-                                <div class="contact-method">
-                                    <img src="assets/icons/MdiEmailMarkAsUnread.svg" alt="Email" class="contact-icon">
-                                    <div class="contact-details">
-                                        <h4>Email</h4>
-                                        <p>isaac.ricardo@example.com</p>
-                                    </div>
+                    <!-- Información de Contacto Centrada -->
+                    <div class="contact-info-centered">
+                        <h3>Información de Contacto</h3>
+                        <div class="contact-methods">
+                            <a href="mailto:isaacricardo.dev@gmail.com" class="contact-method contact-link">
+                                <img src="assets/icons/MdiEmailMarkAsUnread.svg" alt="Email" class="contact-icon">
+                                <div class="contact-details">
+                                    <h4>Email</h4>
+                                    <p>isaacricardo.dev@gmail.com</p>
                                 </div>
-                                
-                                <div class="contact-method">
-                                    <img src="assets/icons/SolarPhoneCallingBoldDuotone.svg" alt="Teléfono" class="contact-icon">
-                                    <div class="contact-details">
-                                        <h4>Teléfono</h4>
-                                        <p>+57 (xxx) xxx-xxxx</p>
-                                    </div>
+                            </a>
+                            
+                            <a href="https://t.me/isaacricardo_dev" target="_blank" class="contact-method contact-link">
+                                <img src="assets/icons/LineMdPhoneCallTwotoneLoop.svg" alt="Telegram" class="contact-icon">
+                                <div class="contact-details">
+                                    <h4>Telegram</h4>
+                                    <p>@isaacricardo_dev</p>
                                 </div>
-                                
-                                <div class="contact-method">
-                                    <img src="assets/icons/NimbusMarketing.svg" alt="LinkedIn" class="contact-icon">
-                                    <div class="contact-details">
-                                        <h4>LinkedIn</h4>
-                                        <p>linkedin.com/in/isaacricardo</p>
-                                    </div>
+                            </a>
+                            
+                            <a href="https://github.com/Mixer98" target="_blank" class="contact-method contact-link">
+                                <img src="assets/icons/StreamlineLogosDeviconLogoBlock.svg" alt="GitHub" class="contact-icon">
+                                <div class="contact-details">
+                                    <h4>GitHub</h4>
+                                    <p>github.com/Mixer98</p>
                                 </div>
-                                
-                                <div class="contact-method">
-                                    <img src="assets/icons/StreamlineLogosDeviconLogoBlock.svg" alt="GitHub" class="contact-icon">
-                                    <div class="contact-details">
-                                        <h4>GitHub</h4>
-                                        <p>github.com/isaacricardo</p>
-                                    </div>
+                            </a>
+                            
+                            <a href="https://linkedin.com/in/isaac-ricardo-dev" target="_blank" class="contact-method contact-link">
+                                <img src="assets/icons/NimbusMarketing.svg" alt="LinkedIn" class="contact-icon">
+                                <div class="contact-details">
+                                    <h4>LinkedIn</h4>
+                                    <p>isaac-ricardo-dev</p>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Formulario de Contacto -->
-                        <div class="contact-form">
-                            <h3>Envíame un mensaje</h3>
-                            <form class="form">
-                                <div class="form-group">
-                                    <label for="name">Nombre</label>
-                                    <input type="text" id="name" name="name" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" id="email" name="email" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="subject">Asunto</label>
-                                    <input type="text" id="subject" name="subject" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="message">Mensaje</label>
-                                    <textarea id="message" name="message" rows="5" required></textarea>
-                                </div>
-                                
-                                <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
-                            </form>
+                            </a>
                         </div>
                     </div>
 
                     <!-- Enlaces Sociales -->
                     <div class="social-links">
-                        <h3>Sígueme en redes</h3>
+                        <h3>Conecta conmigo</h3>
                         <div class="social-buttons">
-                            <a href="https://github.com/isaacricardo" class="btn btn-social" target="_blank">
+                            <a href="https://github.com/Mixer98" class="btn btn-social" target="_blank">
                                 <img class="social-icon" src="assets/icons/StreamlineLogosDeviconLogoBlock.svg" alt="GitHub">
                                 GitHub
                             </a>
-                            <a href="https://linkedin.com/in/isaacricardo" class="btn btn-social" target="_blank">
+                            <a href="https://linkedin.com/in/isaac-ricardo-dev" class="btn btn-social" target="_blank">
                                 <img class="social-icon" src="assets/icons/NimbusMarketing.svg" alt="LinkedIn">
                                 LinkedIn
+                            </a>
+                            <a href="https://t.me/isaacricardo_dev" class="btn btn-social" target="_blank">
+                                <img class="social-icon" src="assets/icons/LineMdPhoneCallTwotoneLoop.svg" alt="Telegram">
+                                Telegram
+                            </a>
+                            <a href="mailto:isaacricardo.dev@gmail.com" class="btn btn-social">
+                                <img class="social-icon" src="assets/icons/MdiEmailMarkAsUnread.svg" alt="Email">
+                                Email
                             </a>
                         </div>
                     </div>
