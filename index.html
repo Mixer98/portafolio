@@ -16,54 +16,101 @@
     <link rel="stylesheet" href="css/style.css">
     <script>
         function showSection(sectionId, buttonElement) {
-            // Ocultar todas las secciones
-            const sections = document.querySelectorAll('.section-content');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Mostrar la sección seleccionada
+            // Obtener la sección activa actual
+            const currentSection = document.querySelector('.section-content.active');
             const targetSection = document.getElementById(sectionId);
-            if (targetSection) {
-                targetSection.classList.add('active');
+            
+            // Si ya estamos en la sección objetivo, no hacer nada
+            if (currentSection && currentSection.id === sectionId) {
+                return;
             }
             
-            // Actualizar botones activos del nav
-            const buttons = document.querySelectorAll('.boton');
-            buttons.forEach(button => {
-                button.classList.remove('active');
-            });
-            
-            // Marcar botón activo - buscar por el onclick que contenga la sección
-            if (buttonElement) {
-                buttonElement.classList.add('active');
-            } else {
-                // Fallback: buscar el botón por su onclick
-                const activeButton = document.querySelector(`[onclick*="'${sectionId}'"]`);
-                if (activeButton) {
-                    activeButton.classList.add('active');
+            // Función para mostrar la nueva sección
+            const showNewSection = () => {
+                // Ocultar todas las secciones
+                const sections = document.querySelectorAll('.section-content');
+                sections.forEach(section => {
+                    section.classList.remove('active', 'fade-in', 'fade-out');
+                });
+                
+                // Mostrar la sección seleccionada con animación
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                    // Pequeño delay para asegurar que el display: block se aplique antes de la animación
+                    setTimeout(() => {
+                        targetSection.classList.add('fade-in');
+                    }, 10);
                 }
-            }
-            
-            // Scroll suave hacia arriba al cambiar de sección
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-            
-            // Reinicializar efectos de hover si estamos en la sección de educación
-            if (sectionId === 'educacion') {
-                setTimeout(() => {
-                    if (typeof initCertAnimations === 'function') {
-                        initCertAnimations();
+                
+                // Actualizar botones activos del nav
+                const buttons = document.querySelectorAll('.boton');
+                buttons.forEach(button => {
+                    button.classList.remove('active');
+                });
+                
+                // Marcar botón activo - buscar por el onclick que contenga la sección
+                if (buttonElement) {
+                    buttonElement.classList.add('active');
+                } else {
+                    // Fallback: buscar el botón por su onclick
+                    const activeButton = document.querySelector(`[onclick*="'${sectionId}'"]`);
+                    if (activeButton) {
+                        activeButton.classList.add('active');
                     }
-                }, 300);
+                }
+                
+                // Scroll suave hacia arriba al cambiar de sección
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                
+                // Reinicializar efectos de hover si estamos en la sección de educación
+                if (sectionId === 'educacion') {
+                    setTimeout(() => {
+                        if (typeof initCertAnimations === 'function') {
+                            initCertAnimations();
+                        }
+                    }, 300);
+                }
+            };
+            
+            // Si hay una sección activa, aplicar fade out antes de mostrar la nueva
+            if (currentSection) {
+                currentSection.classList.add('fade-out');
+                currentSection.classList.remove('fade-in');
+                
+                // Esperar a que termine la animación de fade out
+                setTimeout(() => {
+                    showNewSection();
+                }, 320);
+            } else {
+                // Si no hay sección activa, mostrar directamente
+                showNewSection();
             }
         }
         
         // Mostrar sección inicial al cargar
         document.addEventListener('DOMContentLoaded', function() {
-            showSection('inicio');
+            // Asegurar que todas las secciones estén ocultas inicialmente
+            const sections = document.querySelectorAll('.section-content');
+            sections.forEach(section => {
+                section.classList.remove('active', 'fade-in', 'fade-out');
+            });
+            
+            // Mostrar la sección inicio
+            const inicioSection = document.getElementById('inicio');
+            if (inicioSection) {
+                inicioSection.classList.add('active', 'fade-in');
+            }
+            
+            // Activar el botón de inicio
+            const inicioButton = document.querySelector('[onclick*="inicio"]');
+            if (inicioButton) {
+                inicioButton.classList.add('active');
+            }
+            
+            // Inicializar animaciones de certificados
             initCertAnimations();
         });
 
@@ -348,6 +395,42 @@
                 closeCertModal();
             }
         });
+
+        // Función para copiar email al portapapeles
+        function copyEmail(email) {
+            navigator.clipboard.writeText(email).then(function() {
+                // Mostrar feedback visual
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅';
+                btn.style.transform = 'scale(1.1)';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.transform = 'scale(1)';
+                }, 1500);
+            }).catch(function(err) {
+                console.log('Error al copiar: ', err);
+                // Fallback para navegadores más antiguos
+                const textArea = document.createElement('textarea');
+                textArea.value = email;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                // Feedback visual
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅';
+                btn.style.transform = 'scale(1.1)';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.transform = 'scale(1)';
+                }, 1500);
+            });
+        }
     </script>
 </head>
 <body>
@@ -385,7 +468,7 @@
 
         <div class="content">
             <!-- SECCIÓN: INICIO -->
-            <div id="inicio" class="section-content active">
+            <div id="inicio" class="section-content">
                 <!-- Hero Principal -->
                 <section class="hero-section">
                     <div class="hero-content">
@@ -476,12 +559,8 @@
                         <div class="cta-buttons">
                             <button class="btn btn-primary" onclick="showSection('contacto')">Contáctame</button>
                             <a href="https://github.com/Mixer98" class="btn btn-social" target="_blank">
-                                <img class="social-icon" src="assets/icons/StreamlineLogosDeviconLogoBlock.svg" alt="GitHub">
+                                <img class="social-icon" src="assets/icons/UimGithub (1).svg" alt="GitHub">
                                 GitHub
-                            </a>
-                            <a href="https://linkedin.com/in/isaac-ricardo-dev" class="btn btn-social" target="_blank">
-                                <img class="social-icon" src="assets/icons/NimbusMarketing.svg" alt="LinkedIn">
-                                LinkedIn
                             </a>
                         </div>
                     </div>
@@ -591,38 +670,6 @@
                             </div>
 
 
-                            <div class="project-card-full">
-                                <div class="project-header">
-                                    <h3>🖥️ Sistema de Gestión con Java GUI</h3>
-                                    <div class="project-links">
-                                        <a href="#" class="btn btn-outline">Ver Demo</a>
-                                        <a href="#" class="btn btn-outline">Código</a>
-                                    </div>
-                                </div>
-                                <p class="project-description-full">
-                                    Aplicación de escritorio desarrollada en Java con interfaz gráfica completa, 
-                                    implementando programación orientada a objetos, manejo de eventos, clases y objetos. 
-                                    Sistema robusto con conexión a base de datos MySQL para persistencia de datos.
-                                </p>
-                                <div class="project-features">
-                                    <h4>⚙️ Características principales:</h4>
-                                    <ul>
-                                        <li>🖼️ Interfaz gráfica intuitiva con Swing/AWT</li>
-                                        <li>🎯 Manejo completo de eventos de usuario</li>
-                                        <li>🏗️ Arquitectura POO robusta y escalable</li>
-                                        <li>🗄️ Integración con base de datos MySQL</li>
-                                        <li>✅ Validación de datos y manejo de errores</li>
-                                        <li>👤 Sistema de usuarios y permisos</li>
-                                    </ul>
-                                </div>
-                                <div class="project-tech">
-                                    <span class="tech-tag">Java</span>
-                                    <span class="tech-tag">Swing/AWT</span>
-                                    <span class="tech-tag">MySQL</span>
-                                    <span class="tech-tag">POO</span>
-                                    <span class="tech-tag">Aplicación Desktop</span>
-                                </div>
-                            </div>
 
                             <div class="project-card-full">
                                 <div class="project-header">
@@ -777,13 +824,10 @@
                                         Electrónica Básica
                                     </span>
                                     <span class="skill-chip">
-                                        <img class="skill-icon" src="assets/icons/TablerDeviceImacCog.svg" alt="Alfabetización">
+                                        <img class="skill-icon" src="assets/icons/TablerDeviceImacCog (1).svg" alt="Alfabetización">
                                         Alfabetización Informática
                                     </span>
-                                    <span class="skill-chip">
-                                        <img class="skill-icon" src="assets/icons/NimbusMarketing.svg" alt="Redes Sociales">
-                                        Redes Sociales
-                                    </span>
+                               
                                 </div>
                             </div>
                         </div>
@@ -1025,35 +1069,53 @@
                     <div class="contact-info-centered">
                         <h3>Información de Contacto</h3>
                         <div class="contact-methods">
-                            <a href="mailto:isaacricardo.dev@gmail.com" class="contact-method contact-link">
-                                <img src="assets/icons/MdiEmailMarkAsUnread.svg" alt="Email" class="contact-icon">
+                            <a href="mailto:risaacdavid@gmail.com" class="contact-method contact-link">
                                 <div class="contact-details">
-                                    <h4>Email</h4>
-                                    <p>isaacricardo.dev@gmail.com</p>
+                                    <h4>
+                                        <img src="assets/icons/MdiGmail (1).svg" alt="Gmail" class="contact-icon-inline">
+                                        Email Principal
+                                    </h4>
+                                    <div class="contact-email-row">
+                                        <p>risaacdavid@gmail.com</p>
+                                        <button class="copy-email-btn" onclick="event.preventDefault(); copyEmail('risaacdavid@gmail.com')" title="Copiar email">
+                                            📋
+                                        </button>
+                                    </div>
                                 </div>
                             </a>
                             
-                            <a href="https://t.me/isaacricardo_dev" target="_blank" class="contact-method contact-link">
-                                <img src="assets/icons/LineMdPhoneCallTwotoneLoop.svg" alt="Telegram" class="contact-icon">
+                            <a href="mailto:mixer98@outlook.es" class="contact-method contact-link">
                                 <div class="contact-details">
-                                    <h4>Telegram</h4>
-                                    <p>@isaacricardo_dev</p>
+                                    <h4>
+                                        <img src="assets/icons/ZmdiOutlook.svg" alt="Outlook" class="contact-icon-inline">
+                                        Email Alternativo
+                                    </h4>
+                                    <div class="contact-email-row">
+                                        <p>mixer98@outlook.es</p>
+                                        <button class="copy-email-btn" onclick="event.preventDefault(); copyEmail('mixer98@outlook.es')" title="Copiar email">
+                                            📋
+                                        </button>
+                                    </div>
+                                </div>
+                            </a>
+                            
+                            <a href="https://t.me/ElementalChicken" target="_blank" class="contact-method contact-link">
+                                <div class="contact-details">
+                                    <h4>
+                                        <img src="assets/icons/UimTelegram (1).svg" alt="Telegram" class="contact-icon-inline">
+                                        Telegram
+                                    </h4>
+                                    <p>@ElementalChicken</p>
                                 </div>
                             </a>
                             
                             <a href="https://github.com/Mixer98" target="_blank" class="contact-method contact-link">
-                                <img src="assets/icons/StreamlineLogosDeviconLogoBlock.svg" alt="GitHub" class="contact-icon">
                                 <div class="contact-details">
-                                    <h4>GitHub</h4>
+                                    <h4>
+                                        <img src="assets/icons/UimGithub.svg" alt="GitHub" class="contact-icon-inline">
+                                        GitHub
+                                    </h4>
                                     <p>github.com/Mixer98</p>
-                                </div>
-                            </a>
-                            
-                            <a href="https://linkedin.com/in/isaac-ricardo-dev" target="_blank" class="contact-method contact-link">
-                                <img src="assets/icons/NimbusMarketing.svg" alt="LinkedIn" class="contact-icon">
-                                <div class="contact-details">
-                                    <h4>LinkedIn</h4>
-                                    <p>isaac-ricardo-dev</p>
                                 </div>
                             </a>
                         </div>
@@ -1064,20 +1126,12 @@
                         <h3>Conecta conmigo</h3>
                         <div class="social-buttons">
                             <a href="https://github.com/Mixer98" class="btn btn-social" target="_blank">
-                                <img class="social-icon" src="assets/icons/StreamlineLogosDeviconLogoBlock.svg" alt="GitHub">
+                                <img class="social-icon" src="assets/icons/UimGithub (1).svg" alt="GitHub">
                                 GitHub
                             </a>
-                            <a href="https://linkedin.com/in/isaac-ricardo-dev" class="btn btn-social" target="_blank">
-                                <img class="social-icon" src="assets/icons/NimbusMarketing.svg" alt="LinkedIn">
-                                LinkedIn
-                            </a>
-                            <a href="https://t.me/isaacricardo_dev" class="btn btn-social" target="_blank">
-                                <img class="social-icon" src="assets/icons/LineMdPhoneCallTwotoneLoop.svg" alt="Telegram">
+                            <a href="https://t.me/ElementalChicken" class="btn btn-social" target="_blank">
+                                <img class="social-icon" src="assets/icons/UimTelegram.svg" alt="Telegram">
                                 Telegram
-                            </a>
-                            <a href="mailto:isaacricardo.dev@gmail.com" class="btn btn-social">
-                                <img class="social-icon" src="assets/icons/MdiEmailMarkAsUnread.svg" alt="Email">
-                                Email
                             </a>
                         </div>
                     </div>
