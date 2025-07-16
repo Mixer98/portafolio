@@ -2303,6 +2303,13 @@ section {
         box-shadow: none !important;
     }
     
+    /* Transición inmediata para estados activos en móviles */
+    .boton.active {
+        transition: none !important;
+        background-color: var(--color-primary) !important;
+        color: white !important;
+    }
+    
     /* Forzar eliminación de outline en todos los estados */
     .boton:focus,
     .boton:focus-visible,
@@ -2315,8 +2322,17 @@ section {
     
     /* Eliminar hover en móviles - solo mantener estado activo */
     .boton.active {
-        background-color: var(--color-primary);
-        color: white;
+        background-color: var(--color-primary) !important;
+        color: white !important;
+        transition: none !important; /* Sin transición para cambio inmediato */
+    }
+    
+    .boton.active .icono {
+        filter: brightness(0) invert(1) !important;
+    }
+    
+    .boton.active label {
+        color: white !important;
     }
     
     /* Mejorar feedback táctil en móviles */

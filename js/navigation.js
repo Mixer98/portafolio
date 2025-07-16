@@ -89,9 +89,9 @@ function showSection(sectionId, buttonElement) {
             }
         }
         
-        // Desenfocar navegación en móviles INMEDIATAMENTE después de marcar activo
+        // Forzar "salida" de navegación en móviles INMEDIATAMENTE
         if (isMobile) {
-            blurMobileNav();
+            forceMobileNavExit();
         }
         
         // Scroll suave hacia arriba DESPUÉS de que termine la animación de entrada
@@ -138,7 +138,97 @@ function showSection(sectionId, buttonElement) {
     }
 }
 
-// Función para desenfocar navegación en móviles
+// Función para forzar "salida" completa de navegación en móviles
+function forceMobileNavExit() {
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+        // 1. Blur inmediato de cualquier elemento enfocado
+        if (document.activeElement) {
+            document.activeElement.blur();
+        }
+        
+        // 2. Crear área invisible para recibir el toque/foco
+        const invisibleArea = document.createElement('div');
+        invisibleArea.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: transparent;
+            z-index: -1;
+            pointer-events: auto;
+        `;
+        invisibleArea.setAttribute('tabindex', '-1');
+        document.body.appendChild(invisibleArea);
+        
+        // 3. Simular toque fuera del nav
+        invisibleArea.focus();
+        
+        // 4. Limpiar todos los estados de navegación
+        const buttons = document.querySelectorAll('.boton');
+        const nav = document.querySelector('nav');
+        const divNav = document.getElementById('divnav');
+        
+        buttons.forEach(button => {
+            button.blur();
+            button.style.removeProperty('background-color');
+            button.style.removeProperty('color');
+            button.style.removeProperty('outline');
+            button.style.removeProperty('box-shadow');
+            
+            // Forzar que no tenga pseudo-estados
+            if (!button.classList.contains('active')) {
+                button.style.setProperty('background-color', 'transparent', 'important');
+                button.style.setProperty('color', 'var(--color-text)', 'important');
+            }
+        });
+        
+        // 5. Desenfocar contenedores de navegación
+        if (nav) nav.blur();
+        if (divNav) divNav.blur();
+        
+        // 6. Forzar que el body tome el foco (simular toque fuera)
+        document.body.focus();
+        document.body.click();
+        
+        // 7. Trigger evento de toque fuera del nav
+        const touchEvent = new Event('touchstart', { bubbles: true });
+        document.body.dispatchEvent(touchEvent);
+        
+        // 8. Remover área invisible
+        setTimeout(() => {
+            if (document.body.contains(invisibleArea)) {
+                document.body.removeChild(invisibleArea);
+            }
+        }, 50);
+        
+        // 9. Forzar reflow múltiple para asegurar cambios visuales
+        if (nav) {
+            nav.style.display = 'none';
+            nav.offsetHeight; // Force reflow
+            nav.style.display = 'flex';
+            nav.offsetHeight; // Force reflow again
+        }
+        
+        // 10. Asegurar que solo el botón activo mantenga sus estilos
+        setTimeout(() => {
+            buttons.forEach(button => {
+                if (button.classList.contains('active')) {
+                    // Forzar colores activos
+                    button.style.removeProperty('background-color');
+                    button.style.removeProperty('color');
+                } else {
+                    // Forzar transparencia en no activos
+                    button.style.setProperty('background-color', 'transparent', 'important');
+                    button.style.setProperty('color', 'var(--color-text)', 'important');
+                }
+            });
+        }, 1);
+    }
+}
+
+// Función para desenfocar navegación en móviles (legacy)
 function blurMobileNav() {
     const isMobile = window.innerWidth <= 768;
     if (isMobile) {
