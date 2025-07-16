@@ -195,12 +195,26 @@ nav {
     transition: background-color 0.3s ease;
 }
 
-.boton:hover {
-    background-color: var(--color-secondary);
+/* Solo aplicar hover en dispositivos con mouse (no táctiles) */
+@media (hover: hover) and (pointer: fine) {
+    .boton:hover {
+        background-color: var(--color-secondary);
+    }
+
+    .boton:hover .icono {
+        filter: drop-shadow(0 0 8px var(--color-background));
+    }
 }
 
-.boton:hover .icono {
-    filter: drop-shadow(0 0 8px var(--color-background));
+/* Prevenir estados hover persistentes en dispositivos táctiles */
+@media (hover: none) and (pointer: coarse) {
+    .boton:hover {
+        background-color: transparent !important;
+    }
+    
+    .boton:hover .icono {
+        filter: none !important;
+    }
 }
 
 .icono {
@@ -2315,9 +2329,12 @@ section {
         justify-content: center;
     }
     
-    .nav-toggle:hover {
-        background-color: var(--color-secondary);
-        transform: translateY(-50%) scale(1.1);
+    /* Solo aplicar hover del toggle en dispositivos con mouse */
+    @media (hover: hover) and (pointer: fine) {
+        .nav-toggle:hover {
+            background-color: var(--color-secondary);
+            transform: translateY(-50%) scale(1.1);
+        }
     }
     
     /* Animación para botones que desaparecen */
@@ -2347,12 +2364,21 @@ section {
         transition: background-color 0.2s ease;
     }
     
-    .boton:hover {
-        background-color: var(--color-secondary); /* Mismo hover que desktop */
+    /* Eliminar hover en móviles - solo mantener estado activo */
+    .boton.active {
+        background-color: var(--color-primary);
+        color: white;
     }
     
-    .boton:hover .icono {
-        filter: drop-shadow(0 0 8px var(--color-background)); /* Mismo efecto que desktop */
+    /* Mejorar feedback táctil en móviles */
+    .boton:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    .boton.active:active {
+        transform: scale(0.98);
+        background-color: var(--color-primary-dark);
     }
     
     .icono {
