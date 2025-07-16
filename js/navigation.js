@@ -90,6 +90,13 @@ function showSection(sectionId, buttonElement) {
             });
         }, scrollDelay);
         
+        // Desenfocar navegación en móviles después de seleccionar
+        if (isMobile) {
+            setTimeout(() => {
+                blurMobileNav();
+            }, 200);
+        }
+        
         // Reinicializar efectos de hover si estamos en la sección de educación
         if (sectionId === 'educacion') {
             const initDelay = isMobile ? 850 : 600;
@@ -121,6 +128,38 @@ function showSection(sectionId, buttonElement) {
     } else {
         // Si no hay sección activa, mostrar directamente
         showNewSection();
+    }
+}
+
+// Función para desenfocar navegación en móviles
+function blurMobileNav() {
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+        // Quitar foco de todos los botones de navegación
+        const buttons = document.querySelectorAll('.boton');
+        buttons.forEach(button => {
+            button.blur();
+        });
+        
+        // Quitar foco del contenedor de navegación
+        const nav = document.querySelector('nav');
+        if (nav) {
+            nav.blur();
+        }
+        
+        const divNav = document.getElementById('divnav');
+        if (divNav) {
+            divNav.blur();
+        }
+        
+        // Forzar reflow para asegurar que los estilos se actualicen
+        document.body.focus();
+        document.body.blur();
+        
+        // Como alternativa, enfocar temporalmente el body
+        if (document.activeElement && document.activeElement !== document.body) {
+            document.activeElement.blur();
+        }
     }
 }
 

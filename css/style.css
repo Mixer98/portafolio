@@ -215,6 +215,23 @@ nav {
     .boton:hover .icono {
         filter: none !important;
     }
+    
+    /* Quitar estados de foco en móviles */
+    .boton:focus {
+        outline: none !important;
+        background-color: transparent !important;
+    }
+    
+    .boton:focus .icono {
+        filter: none !important;
+    }
+    
+    /* Asegurar que solo el estado activo se vea */
+    .boton:not(.active):focus,
+    .boton:not(.active):hover {
+        background-color: transparent !important;
+        color: var(--color-text) !important;
+    }
 }
 
 .icono {
@@ -2284,6 +2301,21 @@ section {
     .boton.active:active {
         transform: scale(0.98);
         background-color: var(--color-primary-dark);
+    }
+    
+    /* Quitar todos los estados de foco en navegación móvil */
+    .boton:focus,
+    .boton:focus-visible {
+        outline: none !important;
+    }
+    
+    .boton:not(.active):focus {
+        background-color: transparent !important;
+        color: var(--color-text) !important;
+    }
+    
+    .boton:not(.active):focus .icono {
+        filter: none !important;
     }
     
     .icono {
