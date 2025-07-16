@@ -90,13 +90,6 @@ function showSection(sectionId, buttonElement) {
             });
         }, scrollDelay);
         
-        // Colapsar navegación en móviles después de seleccionar
-        if (isMobile) {
-            setTimeout(() => {
-                collapseMobileNav();
-            }, 300);
-        }
-        
         // Reinicializar efectos de hover si estamos en la sección de educación
         if (sectionId === 'educacion') {
             const initDelay = isMobile ? 850 : 600;
@@ -128,35 +121,6 @@ function showSection(sectionId, buttonElement) {
     } else {
         // Si no hay sección activa, mostrar directamente
         showNewSection();
-    }
-}
-
-// Funciones para navegación móvil colapsable
-function collapseMobileNav() {
-    const isMobile = window.innerWidth <= 768;
-    if (isMobile) {
-        const divNav = document.getElementById('divnav');
-        if (divNav) {
-            divNav.classList.add('collapsed');
-        }
-    }
-}
-
-function expandMobileNav() {
-    const divNav = document.getElementById('divnav');
-    if (divNav) {
-        divNav.classList.remove('collapsed');
-    }
-}
-
-function toggleMobileNav() {
-    const divNav = document.getElementById('divnav');
-    if (divNav) {
-        if (divNav.classList.contains('collapsed')) {
-            expandMobileNav();
-        } else {
-            collapseMobileNav();
-        }
     }
 }
 
@@ -207,26 +171,4 @@ function initializeNavigation() {
     if (inicioButton) {
         inicioButton.classList.add('active');
     }
-    
-    // Colapsar navegación en móviles después de un momento
-    const isMobile = window.innerWidth <= 768;
-    if (isMobile) {
-        setTimeout(() => {
-            collapseMobileNav();
-        }, 2000); // Esperar 2 segundos para que el usuario vea la navegación completa
-    }
 }
-
-// Evento para manejar cambios de tamaño de ventana
-function handleResize() {
-    const isMobile = window.innerWidth <= 768;
-    const divNav = document.getElementById('divnav');
-    
-    if (!isMobile && divNav) {
-        // Si no estamos en móvil, expandir la navegación
-        divNav.classList.remove('collapsed');
-    }
-}
-
-// Agregar listener para cambios de tamaño
-window.addEventListener('resize', handleResize);

@@ -2232,121 +2232,26 @@ section {
         height: 60px;
         display: flex;
         align-items: center;
-        justify-content: center; /* Centrar el nav */
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        justify-content: center;
         padding: 10px 15px;
         z-index: 1001;
-        background: transparent; /* Sin fondo en el contenedor */
-    }
-    
-    #divnav:hover {
-        width: 100%; /* No cambiar ancho */
+        background: transparent;
     }
     
     nav {
-        width: auto; /* Mantener ancho automático */
-        max-width: 400px; /* Limitar ancho máximo */
-        background-color: rgba(255, 251, 222, 0.4); /* Mismo fondo que desktop */
-        backdrop-filter: blur(10px); /* Mismo blur que desktop */
+        width: auto;
+        max-width: 400px;
+        background-color: rgba(255, 251, 222, 0.4);
+        backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        border-radius: 15px; /* Mantener border-radius */
+        border-radius: 15px;
         display: flex;
         flex-direction: row;
         gap: 2px;
         padding: 5px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Misma sombra que desktop */
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         justify-content: space-around;
         align-items: center;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        overflow: hidden;
-    }
-    
-    /* Estado colapsado de la navegación móvil */
-    #divnav.collapsed {
-        height: 45px;
-        padding: 8px 12px;
-    }
-    
-    #divnav.collapsed nav {
-        max-width: 120px;
-        padding: 3px 8px;
-        border-radius: 25px;
-        gap: 0;
-    }
-    
-    #divnav.collapsed .boton {
-        width: auto;
-        min-width: unset;
-        padding: 6px 8px;
-        opacity: 0;
-        transform: scale(0.8);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        pointer-events: none;
-    }
-    
-    #divnav.collapsed .boton.active {
-        opacity: 1;
-        transform: scale(1);
-        pointer-events: auto;
-        background-color: var(--color-primary);
-        color: white;
-        border-radius: 20px;
-    }
-    
-    #divnav.collapsed .boton .etnav {
-        display: none;
-    }
-    
-    #divnav.collapsed .boton .icono {
-        width: 18px;
-        height: 18px;
-        margin-bottom: 0;
-    }
-    
-    /* Botón para expandir navegación */
-    .nav-toggle {
-        display: none;
-        position: absolute;
-        right: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: var(--color-primary);
-        color: white;
-        border: none;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 16px;
-        line-height: 1;
-        z-index: 1002;
-        transition: all 0.3s ease;
-    }
-    
-    #divnav.collapsed .nav-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    /* Solo aplicar hover del toggle en dispositivos con mouse */
-    @media (hover: hover) and (pointer: fine) {
-        .nav-toggle:hover {
-            background-color: var(--color-secondary);
-            transform: translateY(-50%) scale(1.1);
-        }
-    }
-    
-    /* Animación para botones que desaparecen */
-    #divnav:not(.collapsed) .boton {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    /* Estado expandido - asegurar visibilidad */
-    #divnav:not(.collapsed) .boton {
-        opacity: 1;
-        transform: scale(1);
-        pointer-events: auto;
     }
     
     .boton {
