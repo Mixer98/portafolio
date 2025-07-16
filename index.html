@@ -36,10 +36,10 @@
                 // Mostrar la sección seleccionada con animación
                 if (targetSection) {
                     targetSection.classList.add('active');
-                    // Pequeño delay para asegurar que el display: block se aplique antes de la animación
+                    // Delay más largo para asegurar que el display: block se aplique completamente
                     setTimeout(() => {
                         targetSection.classList.add('fade-in');
-                    }, 10);
+                    }, 50);
                 }
                 
                 // Actualizar botones activos del nav
@@ -59,11 +59,13 @@
                     }
                 }
                 
-                // Scroll suave hacia arriba al cambiar de sección
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
+                // Scroll suave hacia arriba DESPUÉS de que termine la animación de entrada
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }, 500); // Esperar a que termine la animación fade-in
                 
                 // Reinicializar efectos de hover si estamos en la sección de educación
                 if (sectionId === 'educacion') {
@@ -71,7 +73,7 @@
                         if (typeof initCertAnimations === 'function') {
                             initCertAnimations();
                         }
-                    }, 300);
+                    }, 600);
                 }
             };
             
