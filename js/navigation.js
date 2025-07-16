@@ -13,6 +13,16 @@ function showSection(sectionId, buttonElement) {
         return;
     }
     
+    // Detectar si estamos en móvil
+    const isMobile = window.innerWidth <= 768;
+    
+    // Crear indicador de transición para móviles
+    let transitionIndicator = null;
+    if (isMobile) {
+        transitionIndicator = createTransitionIndicator();
+        showTransitionIndicator(transitionIndicator);
+    }
+    
     // Función para mostrar la nueva sección
     const showNewSection = () => {
         // Ocultar todas las secciones
@@ -24,10 +34,17 @@ function showSection(sectionId, buttonElement) {
         // Mostrar la sección seleccionada con animación
         if (targetSection) {
             targetSection.classList.add('active');
-            // Delay más largo para asegurar que el display: block se aplique completamente
+            // Delay más largo en móviles para mejor visibilidad
+            const delay = isMobile ? 150 : 50;
             setTimeout(() => {
                 targetSection.classList.add('fade-in');
-            }, 50);
+                // Ocultar indicador después de iniciar la animación
+                if (transitionIndicator) {
+                    setTimeout(() => {
+                        hideTransitionIndicator(transitionIndicator);
+                    }, 200);
+                }
+            }, delay);
         }
         
         // Actualizar botones activos del nav
@@ -48,20 +65,23 @@ function showSection(sectionId, buttonElement) {
         }
         
         // Scroll suave hacia arriba DESPUÉS de que termine la animación de entrada
+        // En móviles, esperar más tiempo para que la animación sea visible
+        const scrollDelay = isMobile ? 750 : 500;
         setTimeout(() => {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
-        }, 500); // Esperar a que termine la animación fade-in
+        }, scrollDelay);
         
         // Reinicializar efectos de hover si estamos en la sección de educación
         if (sectionId === 'educacion') {
+            const initDelay = isMobile ? 850 : 600;
             setTimeout(() => {
                 if (typeof initCertAnimations === 'function') {
                     initCertAnimations();
                 }
-            }, 600);
+            }, initDelay);
         }
     };
     
@@ -70,13 +90,42 @@ function showSection(sectionId, buttonElement) {
         currentSection.classList.add('fade-out');
         currentSection.classList.remove('fade-in');
         
-        // Esperar a que termine la animación de fade out
+        // Esperar a que termine la animación de fade out (más tiempo en móviles)
+        const fadeOutDelay = isMobile ? 400 : 320;
         setTimeout(() => {
             showNewSection();
-        }, 320);
+        }, fadeOutDelay);
     } else {
         // Si no hay sección activa, mostrar directamente
         showNewSection();
+    }
+}
+
+// Funciones auxiliares para el indicador de transición en móviles
+function createTransitionIndicator() {
+    const indicator = document.createElement('div');
+    indicator.className = 'section-transition';
+    indicator.textContent = 'Cargando...';
+    document.body.appendChild(indicator);
+    return indicator;
+}
+
+function showTransitionIndicator(indicator) {
+    if (indicator) {
+        setTimeout(() => {
+            indicator.classList.add('show');
+        }, 10);
+    }
+}
+
+function hideTransitionIndicator(indicator) {
+    if (indicator) {
+        indicator.classList.remove('show');
+        setTimeout(() => {
+            if (indicator.parentNode) {
+                indicator.parentNode.removeChild(indicator);
+            }
+        }, 200);
     }
 }
 
