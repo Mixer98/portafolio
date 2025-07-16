@@ -3,7 +3,15 @@
  * Maneja el cambio de secciones con animaciones fade in/out
  */
 
+// Variable para controlar si hay una transición en progreso
+let isTransitioning = false;
+
 function showSection(sectionId, buttonElement) {
+    // Si hay una transición en progreso, ignorar la nueva solicitud
+    if (isTransitioning) {
+        return;
+    }
+    
     // Obtener la sección activa actual
     const currentSection = document.querySelector('.section-content.active');
     const targetSection = document.getElementById(sectionId);
@@ -13,6 +21,9 @@ function showSection(sectionId, buttonElement) {
         return;
     }
     
+    // Marcar que hay una transición en progreso
+    isTransitioning = true;
+    
     // Detectar si estamos en móvil
     const isMobile = window.innerWidth <= 768;
     
@@ -21,6 +32,11 @@ function showSection(sectionId, buttonElement) {
     if (isMobile) {
         transitionIndicator = createTransitionIndicator();
         showTransitionIndicator(transitionIndicator);
+        
+        // Vibración ligera si el dispositivo la soporta
+        if (navigator.vibrate) {
+            navigator.vibrate(30);
+        }
     }
     
     // Función para mostrar la nueva sección
@@ -81,7 +97,14 @@ function showSection(sectionId, buttonElement) {
                 if (typeof initCertAnimations === 'function') {
                     initCertAnimations();
                 }
+                // Marcar que la transición ha terminado
+                isTransitioning = false;
             }, initDelay);
+        } else {
+            // Si no es la sección de educación, marcar como terminado después del scroll
+            setTimeout(() => {
+                isTransitioning = false;
+            }, scrollDelay + 100);
         }
     };
     
