@@ -91,7 +91,20 @@ function showSection(sectionId, buttonElement) {
         
         // Forzar "salida" de navegación en móviles INMEDIATAMENTE
         if (isMobile) {
-            forceMobileNavExit();
+            // Ejecutar múltiples estrategias para asegurar que funcione
+            simulateClickOutsideNav();
+            
+            // Estrategia adicional: usar requestAnimationFrame para la siguiente frame
+            requestAnimationFrame(() => {
+                const buttons = document.querySelectorAll('.boton');
+                buttons.forEach(button => {
+                    if (button.classList.contains('active')) {
+                        // Forzar re-aplicación de la clase activa
+                        button.classList.remove('active');
+                        button.classList.add('active');
+                    }
+                });
+            });
         }
         
         // Scroll suave hacia arriba DESPUÉS de que termine la animación de entrada
@@ -138,7 +151,100 @@ function showSection(sectionId, buttonElement) {
     }
 }
 
-// Función para forzar "salida" completa de navegación en móviles
+// Función para simular clic fuera del nav en móviles
+function simulateClickOutsideNav() {
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+        // 1. Crear un elemento temporal fuera del nav para hacer clic
+        const clickTarget = document.createElement('div');
+        clickTarget.style.cssText = `
+            position: fixed;
+            top: 50vh;
+            left: 50vw;
+            width: 1px;
+            height: 1px;
+            background: transparent;
+            z-index: -1;
+            pointer-events: auto;
+        `;
+        clickTarget.setAttribute('tabindex', '-1');
+        document.body.appendChild(clickTarget);
+        
+        // 2. Forzar que todos los botones pierdan el foco inmediatamente
+        const buttons = document.querySelectorAll('.boton');
+        const nav = document.querySelector('nav');
+        const divNav = document.getElementById('divnav');
+        
+        // Blur todo inmediatamente
+        buttons.forEach(button => button.blur());
+        if (nav) nav.blur();
+        if (divNav) divNav.blur();
+        if (document.activeElement) document.activeElement.blur();
+        
+        // 3. Simular secuencia completa de eventos como un clic real
+        const events = ['mousedown', 'mouseup', 'click', 'touchstart', 'touchend'];
+        
+        events.forEach(eventType => {
+            const event = new Event(eventType, { 
+                bubbles: true, 
+                cancelable: true,
+                composed: true 
+            });
+            clickTarget.dispatchEvent(event);
+        });
+        
+        // 4. Forzar foco en el elemento temporal (simular clic)
+        clickTarget.focus();
+        
+        // 5. Simular que el clic ocurrió en el body (fuera del nav)
+        const bodyClickEvent = new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            clientX: window.innerWidth / 2,
+            clientY: window.innerHeight / 2
+        });
+        document.body.dispatchEvent(bodyClickEvent);
+        
+        // 6. Forzar que el body tome el foco final
+        document.body.focus();
+        
+        // 7. Limpiar todos los estados inline de los botones
+        setTimeout(() => {
+            buttons.forEach(button => {
+                // Limpiar estilos que puedan estar interfiriendo
+                button.style.removeProperty('background-color');
+                button.style.removeProperty('color');
+                button.style.removeProperty('outline');
+                button.style.removeProperty('box-shadow');
+                
+                // Forzar re-aplicación de clases CSS
+                if (button.classList.contains('active')) {
+                    button.classList.remove('active');
+                    button.offsetHeight; // Force reflow
+                    button.classList.add('active');
+                } else {
+                    // Asegurar que no activos permanezcan transparentes
+                    button.style.setProperty('background-color', 'transparent', 'important');
+                }
+            });
+            
+            // Remover elemento temporal
+            if (document.body.contains(clickTarget)) {
+                document.body.removeChild(clickTarget);
+            }
+        }, 10);
+        
+        // 8. Forzar reflow de la navegación
+        if (nav) {
+            const display = nav.style.display;
+            nav.style.display = 'none';
+            nav.offsetHeight; // Force reflow
+            nav.style.display = display || 'flex';
+        }
+    }
+}
+
+// Función para forzar "salida" completa de navegación en móviles (legacy)
 function forceMobileNavExit() {
     const isMobile = window.innerWidth <= 768;
     if (isMobile) {
@@ -348,5 +454,29 @@ function initializeNavigation() {
     const inicioButton = document.querySelector('[onclick*="inicio"]');
     if (inicioButton) {
         inicioButton.classList.add('active');
+    }
+    
+    // Agregar listener para detectar clics fuera del nav en móviles
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const divNav = document.getElementById('divnav');
+            
+            // Si el clic fue fuera del nav
+            if (nav && !nav.contains(event.target) && 
+                divNav && !divNav.contains(event.target)) {
+                
+                // Limpiar estados de todos los botones no activos
+                const buttons = document.querySelectorAll('.boton');
+                buttons.forEach(button => {
+                    if (!button.classList.contains('active')) {
+                        button.blur();
+                        button.style.removeProperty('background-color');
+                        button.style.removeProperty('color');
+                    }
+                });
+            }
+        });
     }
 }
