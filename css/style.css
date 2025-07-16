@@ -2244,8 +2244,9 @@ section {
     #divnav {
         position: fixed;
         top: 0;
-        left: 0;
-        width: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: auto;
         height: 60px;
         display: flex;
         align-items: center;
@@ -2284,6 +2285,32 @@ section {
         padding: 8px 5px; /* Más padding vertical */
         cursor: pointer;
         transition: background-color 0.2s ease;
+        
+        /* Eliminar efectos táctiles de WebKit */
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        
+        /* Forzar que no tenga estados persistentes */
+        touch-action: manipulation;
+        
+        /* Eliminar cualquier outline o borde */
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    
+    /* Forzar eliminación de outline en todos los estados */
+    .boton:focus,
+    .boton:focus-visible,
+    .boton:focus-within,
+    .boton:active {
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
     }
     
     /* Eliminar hover en móviles - solo mantener estado activo */
@@ -2315,6 +2342,23 @@ section {
     }
     
     .boton:not(.active):focus .icono {
+        filter: none !important;
+    }
+    
+    /* Forzar que botones no activos permanezcan sin estilos */
+    .boton:not(.active) {
+        background-color: transparent !important;
+        color: var(--color-text) !important;
+    }
+    
+    .boton:not(.active):hover,
+    .boton:not(.active):focus,
+    .boton:not(.active):active {
+        background-color: transparent !important;
+        color: var(--color-text) !important;
+    }
+    
+    .boton:not(.active) .icono {
         filter: none !important;
     }
     

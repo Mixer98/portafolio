@@ -7,6 +7,18 @@
 let isTransitioning = false;
 
 function showSection(sectionId, buttonElement) {
+    // Detectar si estamos en móvil
+    const isMobile = window.innerWidth <= 768;
+    
+    // Desenfocar inmediatamente en móviles al hacer clic
+    if (isMobile && buttonElement) {
+        // Forzar blur inmediato del botón clickeado
+        buttonElement.blur();
+        // Quitar cualquier outline inmediatamente
+        buttonElement.style.setProperty('outline', 'none', 'important');
+        buttonElement.style.setProperty('box-shadow', 'none', 'important');
+    }
+    
     // Si hay una transición en progreso, ignorar la nueva solicitud
     if (isTransitioning) {
         return;
@@ -23,9 +35,6 @@ function showSection(sectionId, buttonElement) {
     
     // Marcar que hay una transición en progreso
     isTransitioning = true;
-    
-    // Detectar si estamos en móvil
-    const isMobile = window.innerWidth <= 768;
     
     // Crear indicador de transición para móviles
     let transitionIndicator = null;
@@ -80,6 +89,11 @@ function showSection(sectionId, buttonElement) {
             }
         }
         
+        // Desenfocar navegación en móviles INMEDIATAMENTE después de marcar activo
+        if (isMobile) {
+            blurMobileNav();
+        }
+        
         // Scroll suave hacia arriba DESPUÉS de que termine la animación de entrada
         // En móviles, esperar más tiempo para que la animación sea visible
         const scrollDelay = isMobile ? 750 : 500;
@@ -89,13 +103,6 @@ function showSection(sectionId, buttonElement) {
                 behavior: 'smooth'
             });
         }, scrollDelay);
-        
-        // Desenfocar navegación en móviles después de seleccionar
-        if (isMobile) {
-            setTimeout(() => {
-                blurMobileNav();
-            }, 200);
-        }
         
         // Reinicializar efectos de hover si estamos en la sección de educación
         if (sectionId === 'educacion') {
@@ -135,31 +142,73 @@ function showSection(sectionId, buttonElement) {
 function blurMobileNav() {
     const isMobile = window.innerWidth <= 768;
     if (isMobile) {
-        // Quitar foco de todos los botones de navegación
-        const buttons = document.querySelectorAll('.boton');
-        buttons.forEach(button => {
-            button.blur();
-        });
-        
-        // Quitar foco del contenedor de navegación
-        const nav = document.querySelector('nav');
-        if (nav) {
-            nav.blur();
-        }
-        
-        const divNav = document.getElementById('divnav');
-        if (divNav) {
-            divNav.blur();
-        }
-        
-        // Forzar reflow para asegurar que los estilos se actualicen
-        document.body.focus();
-        document.body.blur();
-        
-        // Como alternativa, enfocar temporalmente el body
-        if (document.activeElement && document.activeElement !== document.body) {
+        // Primero, quitar inmediatamente el foco del elemento actualmente enfocado
+        if (document.activeElement && document.activeElement.classList.contains('boton')) {
             document.activeElement.blur();
         }
+        
+        // Limpiar todos los botones de navegación
+        const buttons = document.querySelectorAll('.boton');
+        buttons.forEach(button => {
+            // Forzar blur inmediato
+            button.blur();
+            
+            // Limpiar estilos inline que puedan estar aplicados
+            button.style.removeProperty('background-color');
+            button.style.removeProperty('color');
+            button.style.removeProperty('outline');
+            
+            // Si no es el botón activo, forzar estilos transparentes
+            if (!button.classList.contains('active')) {
+                button.style.setProperty('background-color', 'transparent', 'important');
+                button.style.setProperty('color', 'var(--color-text)', 'important');
+            }
+        });
+        
+        // Crear elemento temporal invisible para robar el foco
+        const tempElement = document.createElement('input');
+        tempElement.style.cssText = `
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+            border: none;
+            outline: none;
+        `;
+        document.body.appendChild(tempElement);
+        
+        // Enfocar inmediatamente el elemento temporal
+        tempElement.focus();
+        tempElement.blur();
+        
+        // Remover inmediatamente
+        setTimeout(() => {
+            if (document.body.contains(tempElement)) {
+                document.body.removeChild(tempElement);
+            }
+        }, 10);
+        
+        // Forzar que el body tome el foco
+        document.body.focus();
+        
+        // Forzar reflow/repaint
+        const nav = document.querySelector('nav');
+        if (nav) {
+            const computedStyle = window.getComputedStyle(nav);
+            nav.style.display = computedStyle.display;
+        }
+        
+        // Trigger reflow adicional
+        setTimeout(() => {
+            buttons.forEach(button => {
+                if (!button.classList.contains('active')) {
+                    button.style.setProperty('background-color', 'transparent', 'important');
+                }
+            });
+        }, 1);
     }
 }
 
