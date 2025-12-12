@@ -10,6 +10,7 @@ const certIconMap = {
     'python-analisis': 'assets/icons/DeviconPlainPython.svg',
     'python-variables': 'assets/icons/DeviconPlainPython.svg',
     'mysql': 'assets/icons/CibMysql.svg',
+    'tecnico': 'assets/icons/SolarMedalRibbonStarBoldDuotone.svg',
     'cpp3': 'assets/icons/icons8-c++.svg',
     'cpp2': 'assets/icons/icons8-c++.svg',
     'cpp1': 'assets/icons/icons8-c++.svg',
