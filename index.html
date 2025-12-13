@@ -35,6 +35,11 @@
                 <label class="etnav" for="">Sobre mí</label>
             </button>
             
+            <button class="boton" onclick="showSection('servicios')">
+                <img class="icono" src="assets/icons/nav/sericiodark.svg" alt="">
+                <label class="etnav" for="">Servicios</label>
+            </button>
+            
             <button class="boton" onclick="showSection('portafolio')"> 
                 <img class="icono" src="assets/icons/SolarCodeFileBoldDuotone (1).svg" alt="">
                 <label class="etnav" for="">Portafolio</label>
@@ -177,6 +182,50 @@
                             Gracias a este recorrido, he participado en proyectos formativos donde he implementado soluciones backend, sistemas automatizados, integración de formularios, visualización de datos y consultas SQL estructuradas. Me caracterizo por ser una persona autodidacta, adaptable, comprometida con el aprendizaje constante y con orientación a resultados.<br><br>
                             Actualmente busco seguir creciendo profesionalmente y aportar en proyectos reales relacionados con desarrollo backend, automatización de procesos, análisis de datos o soporte TI. Estoy disponible en modalidad remota o presencial dependiendo el lugar.
                         </p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- SECCIÓN: SERVICIOS -->
+            <div id="servicios" class="section-content">
+                <section class="services-header">
+                    <h1 class="section-main-title">Servicios</h1>
+                    <p class="section-description">Soluciones tecnológicas adaptadas a tus necesidades</p>
+                </section>
+
+                <section class="services-section">
+                    <div class="services-grid">
+                        <!-- Servicio 1: Sitios Web Corporativos e Informativos -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <img src="assets/icons/PhMonitorDuotone (1).svg" alt="Web Corporativo">
+                            </div>
+                            <h3 class="service-title">Sitios Web Corporativos e Informativos</h3>
+                            <p class="service-description">
+                                En la era digital, tu empresa merece una presencia online que refleje su profesionalismo y genere confianza. Tu negocio podrá destacar, conectar con clientes y ofrecer información clara y accesible.
+                            </p>
+                            <ul class="service-features">
+                                <li><strong>Diseño responsivo:</strong> Perfecto en cualquier dispositivo</li>
+                                <li><strong>Optimización SEO:</strong> Mayor visibilidad en buscadores</li>
+                                <li><strong>Seguridad:</strong> Protección de datos y sitio confiable</li>
+                                <li><strong>Contenido claro:</strong> Presentación profesional</li>
+                            </ul>
+                            <div class="service-tech">
+                                <small>🛠️ HTML5, CSS3, JavaScript, PHP, MySQL</small>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Llamado a la acción -->
+                <section class="cta-section">
+                    <div class="cta-content">
+                        <h3 class="cta-title">¿Necesitas alguno de estos servicios?</h3>
+                        <p class="cta-subtitle">Trabajemos juntos en tu próximo proyecto</p>
+                        <div class="cta-buttons">
+                            <button class="btn btn-primary" onclick="showSection('contacto')">Contáctame</button>
+                            <button class="btn btn-secondary" onclick="showSection('portafolio')">Ver Portafolio</button>
+                        </div>
                     </div>
                 </section>
             </div>
