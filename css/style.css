@@ -261,6 +261,180 @@ nav {
     display: block;
 }
 
+/* Media query para dispositivos móviles */
+@media (max-width: 768px) {
+    #divnav {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #divnav:hover {
+        width: 100%;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        padding: 8px;
+        background-color: rgba(255, 251, 222, 0.85);
+        width: 100%;
+        justify-content: space-around;
+        flex-wrap: nowrap;
+    }
+
+    .boton {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 6px;
+        height: auto;
+        min-width: auto;
+        flex: 1;
+    }
+
+    .boton label {
+        display: block !important;
+        font-size: 11px;
+        margin-left: 0;
+        margin-top: 4px;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+        color: var(--color-text);
+    }
+
+    .icono {
+        height: 24px;
+        width: 24px;
+        min-width: 24px;
+    }
+
+    /* Contenido principal se ajusta para el nav inferior */
+    .content {
+        padding: 20px;
+        margin: 20px 0 80px 0;
+        border-radius: 15px;
+    }
+}
+
+/* Media query para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    #divnav {
+        bottom: 0;
+        padding: 2px;
+    }
+
+    nav {
+        gap: 2px;
+        padding: 2px;
+    }
+
+    .boton {
+        padding: 4px 2px;
+    }
+
+    .boton label {
+        font-size: 10px;
+        margin-top: 2px;
+    }
+
+    .icono {
+        height: 20px;
+        width: 20px;
+        min-width: 20px;
+    }
+
+    .content {
+        margin: 20px 0 70px 0;
+        padding: 15px;
+    }
+}
+
+/* Media query para pantallas ultra-pequeñas (320px) */
+@media (max-width: 360px) {
+    #divnav {
+        bottom: 0;
+        padding: 1px;
+        height: auto;
+    }
+
+    nav {
+        gap: 0px;
+        padding: 1px;
+        background-color: rgba(255, 251, 222, 0.9);
+    }
+
+    .boton {
+        padding: 2px 1px;
+        flex: 1;
+    }
+
+    .boton label {
+        font-size: 8px;
+        margin-top: 0px;
+        line-height: 1;
+    }
+
+    .icono {
+        height: 16px;
+        width: 16px;
+        min-width: 16px;
+    }
+
+    .content {
+        margin: 20px 0 55px 0;
+        padding: 10px;
+    }
+
+    main {
+        flex-direction: column;
+    }
+}
+
+/* Media query para iPhone 5/SE y dispositivos ultra compactos */
+@media (max-width: 320px) {
+    #divnav {
+        bottom: 0;
+        padding: 1px;
+    }
+
+    nav {
+        gap: 0px;
+        padding: 1px;
+    }
+
+    .boton {
+        padding: 1px 1px;
+    }
+
+    .boton label {
+        font-size: 7px;
+        margin-top: 0px;
+        line-height: 1;
+    }
+
+    .icono {
+        height: 14px;
+        width: 14px;
+        min-width: 14px;
+    }
+
+    .content {
+        margin: 20px 0 50px 0;
+        padding: 8px;
+    }
+}
+
 /* === CONTENIDO PRINCIPAL === */
 .content {
     flex: 1;
