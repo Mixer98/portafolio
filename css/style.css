@@ -195,6 +195,12 @@ nav {
     transition: background-color 0.3s ease;
 }
 
+/* Estilo para botón activo */
+.boton.active {
+    background-color: var(--color-primary-dark);
+    color: white;
+}
+
 /* Solo aplicar hover en dispositivos con mouse (no táctiles) */
 @media (hover: hover) and (pointer: fine) {
     .boton:hover {
@@ -634,11 +640,15 @@ section {
 
 /* === CTA SECTION === */
 .cta-section {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    background: rgba(18, 153, 144, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 50px 40px;
     border-radius: 20px;
     text-align: center;
-    color: white;
+    color: var(--color-primary-dark);
+    border: 2px solid rgba(18, 153, 144, 0.3);
+    box-shadow: 0 8px 32px rgba(18, 153, 144, 0.1);
 }
 
 .cta-content {
@@ -648,8 +658,15 @@ section {
 
 .cta-title {
     font-size: 2rem;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     font-weight: 600;
+    color: var(--color-primary-dark);
+}
+
+.cta-subtitle {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin-bottom: 30px;
 }
 
 .cta-buttons {
@@ -660,13 +677,14 @@ section {
 }
 
 .cta-buttons .btn {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: var(--color-primary-dark);
+    background-color: var(--color-primary);
+    color: white;
 }
 
 .cta-buttons .btn:hover {
-    background-color: white;
+    background-color: var(--color-primary-dark);
     transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(18, 153, 144, 0.3);
 }
 
 /* === NAVEGACIÓN ENTRE SECCIONES === */
