@@ -195,6 +195,12 @@ nav {
     transition: background-color 0.3s ease;
 }
 
+/* Estilo para botón activo */
+.boton.active {
+    background-color: var(--color-primary-dark);
+    color: white;
+}
+
 /* Solo aplicar hover en dispositivos con mouse (no táctiles) */
 @media (hover: hover) and (pointer: fine) {
     .boton:hover {
@@ -253,6 +259,180 @@ nav {
 
 #divnav:hover .boton label {
     display: block;
+}
+
+/* Media query para dispositivos móviles */
+@media (max-width: 768px) {
+    #divnav {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #divnav:hover {
+        width: 100%;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        padding: 8px;
+        background-color: rgba(255, 251, 222, 0.85);
+        width: 100%;
+        justify-content: space-around;
+        flex-wrap: nowrap;
+    }
+
+    .boton {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 6px;
+        height: auto;
+        min-width: auto;
+        flex: 1;
+    }
+
+    .boton label {
+        display: block !important;
+        font-size: 11px;
+        margin-left: 0;
+        margin-top: 4px;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+        color: var(--color-text);
+    }
+
+    .icono {
+        height: 24px;
+        width: 24px;
+        min-width: 24px;
+    }
+
+    /* Contenido principal se ajusta para el nav inferior */
+    .content {
+        padding: 20px;
+        margin: 20px 0 80px 0;
+        border-radius: 15px;
+    }
+}
+
+/* Media query para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    #divnav {
+        bottom: 0;
+        padding: 2px;
+    }
+
+    nav {
+        gap: 2px;
+        padding: 2px;
+    }
+
+    .boton {
+        padding: 4px 2px;
+    }
+
+    .boton label {
+        font-size: 10px;
+        margin-top: 2px;
+    }
+
+    .icono {
+        height: 20px;
+        width: 20px;
+        min-width: 20px;
+    }
+
+    .content {
+        margin: 20px 0 70px 0;
+        padding: 15px;
+    }
+}
+
+/* Media query para pantallas ultra-pequeñas (320px) */
+@media (max-width: 360px) {
+    #divnav {
+        bottom: 0;
+        padding: 1px;
+        height: auto;
+    }
+
+    nav {
+        gap: 0px;
+        padding: 1px;
+        background-color: rgba(255, 251, 222, 0.9);
+    }
+
+    .boton {
+        padding: 2px 1px;
+        flex: 1;
+    }
+
+    .boton label {
+        font-size: 8px;
+        margin-top: 0px;
+        line-height: 1;
+    }
+
+    .icono {
+        height: 16px;
+        width: 16px;
+        min-width: 16px;
+    }
+
+    .content {
+        margin: 20px 0 55px 0;
+        padding: 10px;
+    }
+
+    main {
+        flex-direction: column;
+    }
+}
+
+/* Media query para iPhone 5/SE y dispositivos ultra compactos */
+@media (max-width: 320px) {
+    #divnav {
+        bottom: 0;
+        padding: 1px;
+    }
+
+    nav {
+        gap: 0px;
+        padding: 1px;
+    }
+
+    .boton {
+        padding: 1px 1px;
+    }
+
+    .boton label {
+        font-size: 7px;
+        margin-top: 0px;
+        line-height: 1;
+    }
+
+    .icono {
+        height: 14px;
+        width: 14px;
+        min-width: 14px;
+    }
+
+    .content {
+        margin: 20px 0 50px 0;
+        padding: 8px;
+    }
 }
 
 /* === CONTENIDO PRINCIPAL === */
@@ -634,11 +814,15 @@ section {
 
 /* === CTA SECTION === */
 .cta-section {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    background: rgba(18, 153, 144, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 50px 40px;
     border-radius: 20px;
     text-align: center;
-    color: white;
+    color: var(--color-primary-dark);
+    border: 2px solid rgba(18, 153, 144, 0.3);
+    box-shadow: 0 8px 32px rgba(18, 153, 144, 0.1);
 }
 
 .cta-content {
@@ -648,8 +832,15 @@ section {
 
 .cta-title {
     font-size: 2rem;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     font-weight: 600;
+    color: var(--color-primary-dark);
+}
+
+.cta-subtitle {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin-bottom: 30px;
 }
 
 .cta-buttons {
@@ -660,13 +851,14 @@ section {
 }
 
 .cta-buttons .btn {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: var(--color-primary-dark);
+    background-color: var(--color-primary);
+    color: white;
 }
 
 .cta-buttons .btn:hover {
-    background-color: white;
+    background-color: var(--color-primary-dark);
     transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(18, 153, 144, 0.3);
 }
 
 /* === NAVEGACIÓN ENTRE SECCIONES === */
@@ -3388,5 +3580,181 @@ section {
     
     @keyframes floatDirection4 {
         100% { transform: scale(0.3) rotate(-360deg) translate(-80px, 80px); }
+    }
+}
+
+/* ================================================
+   ESTILOS DE LA SECCIÓN SERVICIOS
+   ================================================ */
+
+.services-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 1rem;
+}
+
+.services-header .section-main-title {
+    font-size: 2.5rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 1rem;
+}
+
+.services-header .section-description {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.services-section {
+    padding: 2rem 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.service-card {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 30px rgba(18, 153, 144, 0.15);
+    border-color: var(--color-primary);
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+.service-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+    transform: rotate(5deg) scale(1.1);
+}
+
+.service-icon img {
+    width: 40px;
+    height: 40px;
+    filter: brightness(0) invert(1);
+}
+
+.service-title {
+    font-size: 1.4rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.service-description {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.service-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.service-features li {
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    color: var(--color-text);
+    font-size: 0.9rem;
+    position: relative;
+}
+
+.service-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.service-tech {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.service-tech small {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    display: block;
+    text-align: center;
+}
+
+/* Responsive para servicios */
+@media (max-width: 768px) {
+    .services-header .section-main-title {
+        font-size: 2rem;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .service-card {
+        padding: 1.5rem;
+    }
+
+    .service-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .service-icon img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .service-title {
+        font-size: 1.2rem;
     }
 }
