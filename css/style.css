@@ -31,6 +31,10 @@
 
   /* Transiciones */
   --transition: 200ms ease;
+
+  /* Posición del cursor para el fondo dinámico */
+  --mouse-x: 50%;
+  --mouse-y: 50%;
 }
 
 /* ==========================================================================
@@ -49,8 +53,14 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-base);
-  background-image: none;
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      700px circle at var(--mouse-x) var(--mouse-y),
+      rgba(44, 122, 115, 0.16),
+      transparent 45%
+    ),
+    var(--color-base);
   color: var(--color-ink);
   font-size: 1rem;
   line-height: 1.6;
@@ -58,6 +68,7 @@ body {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 p {
@@ -226,11 +237,47 @@ nav {
   }
 }
 
-.icono {
-  height: 28px;
+.icono,
+.contact-icon-inline,
+.social-icon {
   width: 28px;
+  height: 28px;
   min-width: 28px;
-  transition: filter var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: filter var(--transition), color var(--transition);
+}
+
+/* Forzar tamaño absoluto de cualquier SVG dentro de iconos (Lucide u otros) */
+.icono svg,
+.contact-icon-inline svg,
+.social-icon svg {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
+  display: block !important;
+}
+
+/* Lucide específicos */
+.icono[data-lucide],
+.contact-icon-inline[data-lucide],
+.social-icon[data-lucide] {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: inherit !important;
+  transition: color var(--transition), transform var(--transition);
 }
 
 .boton label {
@@ -1212,7 +1259,11 @@ section {
   height: 20px;
   margin-right: 8px;
   vertical-align: middle;
-  filter: brightness(0) invert(0.6);
+  color: var(--color-muted);
+}
+
+.contact-method:hover .contact-icon-inline {
+  color: var(--color-primary);
 }
 
 .contact-details h4 {

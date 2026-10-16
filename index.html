@@ -12,7 +12,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
-    
+
+    <!-- Lucide Icons (librería externa, coloreable con CSS) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <!-- JavaScript Modules -->
     <script src="js/navigation.js"></script>
     <script src="js/certificates.js"></script>
@@ -26,32 +29,32 @@
         <nav>
 
             <button class="boton" type="button" onclick="showSection('inicio')">
-                <img class="icono" src="assets/icons/nav/homeL.svg" alt="">
+                <i class="icono" data-lucide="home"></i>
                 <label class="etnav" for="">Inicio</label>
             </button>
 
             <button class="boton" type="button" onclick="showSection('sobre-mi')">
-                <img class="icono" src="assets/icons/DiplomaD.svg" alt="">
+                <i class="icono" data-lucide="file-text"></i>
                 <label class="etnav" for="">Sobre mí</label>
             </button>
             
             <button class="boton" type="button" onclick="showSection('servicios')">
-                <img class="icono" src="assets/icons/nav/sericiodark.svg" alt="">
+                <i class="icono" data-lucide="cpu"></i>
                 <label class="etnav" for="">Servicios</label>
             </button>
             
             <button class="boton" type="button" onclick="showSection('portafolio')">
-                <img class="icono" src="assets/icons/SolarCodeFileBoldDuotone (1).svg" alt="">
+                <i class="icono" data-lucide="layout"></i>
                 <label class="etnav" for="">Portafolio</label>
             </button>
 
             <button class="boton" type="button" onclick="showSection('educacion')">
-                <img class="icono" src="assets/icons/SolarBook2BoldDuotone (1).svg" alt="">
+                <i class="icono" data-lucide="book-open"></i>
                 <label class="etnav" for="">Educación</label>
             </button>
 
             <button class="boton" type="button" onclick="showSection('contacto')">
-                <img class="icono" src="assets/icons/MdiEmailMarkAsUnread.svg" alt="">
+                <i class="icono" data-lucide="mail"></i>
                 <label class="etnav" for="">Contacto</label>
             </button>
        
@@ -136,7 +139,7 @@
                         <div class="cta-buttons">
                             <button class="btn btn-primary" type="button" onclick="showSection('contacto')">Contáctame</button>
                             <a href="https://github.com/Mixer98" class="btn btn-social" target="_blank">
-                                <img class="social-icon" src="assets/icons/UimGithub (1).svg" alt="GitHub">
+                                <i class="social-icon" data-lucide="github"></i>
                                 GitHub
                             </a>
                         </div>
@@ -910,7 +913,7 @@
                             <a href="mailto:risaacdavid@gmail.com" class="contact-method contact-link">
                                 <div class="contact-details">
                                     <h4>
-                                        <img src="assets/icons/MdiGmail (1).svg" alt="Gmail" class="contact-icon-inline">
+                                        <i class="contact-icon-inline" data-lucide="mail"></i>
                                         Email Principal
                                     </h4>
                                     <div class="contact-email-row">
@@ -925,7 +928,7 @@
                             <a href="mailto:mixer98@outlook.es" class="contact-method contact-link">
                                 <div class="contact-details">
                                     <h4>
-                                        <img src="assets/icons/ZmdiOutlook.svg" alt="Outlook" class="contact-icon-inline">
+                                        <i class="contact-icon-inline" data-lucide="at-sign"></i>
                                         Email Alternativo
                                     </h4>
                                     <div class="contact-email-row">
@@ -940,7 +943,7 @@
                             <a href="https://t.me/ElementalChicken" target="_blank" class="contact-method contact-link">
                                 <div class="contact-details">
                                     <h4>
-                                        <img src="assets/icons/UimTelegram (1).svg" alt="Telegram" class="contact-icon-inline">
+                                        <i class="contact-icon-inline" data-lucide="send"></i>
                                         Telegram
                                     </h4>
                                     <p>@ElementalChicken</p>
@@ -950,7 +953,7 @@
                             <a href="https://wa.me/573008048297?text=Hola%20Isaac%2C%20quiero%20contactarte%20desde%20tu%20portafolio" target="_blank" class="contact-method contact-link">
                                 <div class="contact-details">
                                     <h4>
-                                        <img src="assets/icons/Whatsapp.svg" alt="WhatsApp" class="contact-icon-inline">
+                                        <i class="contact-icon-inline" data-lucide="phone-call"></i>
                                         WhatsApp
                                     </h4>
                                     <p>+57 300 804 8297</p>
@@ -960,7 +963,7 @@
                             <a href="https://github.com/Mixer98" target="_blank" class="contact-method contact-link">
                                 <div class="contact-details">
                                     <h4>
-                                        <img src="assets/icons/UimGithub.svg" alt="GitHub" class="contact-icon-inline">
+                                        <i class="contact-icon-inline" data-lucide="github"></i>
                                         GitHub
                                     </h4>
                                     <p>github.com/Mixer98</p>
@@ -974,11 +977,11 @@
                         <h3>Conecta conmigo</h3>
                         <div class="social-buttons">
                             <a href="https://github.com/Mixer98" class="btn btn-social" target="_blank">
-                                <img class="social-icon" src="assets/icons/UimGithub (1).svg" alt="GitHub">
+                                <i class="social-icon" data-lucide="github"></i>
                                 GitHub
                             </a>
                             <a href="https://t.me/ElementalChicken" class="btn btn-social" target="_blank">
-                                <img class="social-icon" src="assets/icons/UimTelegram.svg" alt="Telegram">
+                                <i class="social-icon" data-lucide="send"></i>
                                 Telegram
                             </a>
                         </div>
