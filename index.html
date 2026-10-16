@@ -15,6 +15,8 @@
 
     <!-- Lucide Icons (librería externa, coloreable con CSS) -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Snap.svg -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
 
     <!-- JavaScript Modules -->
     <script src="js/navigation.js"></script>
@@ -22,8 +24,21 @@
     <script src="js/modal.js"></script>
     <script src="js/contact.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/background-animation.js"></script>
 </head>
 <body>
+    <div class="background-container">
+        <svg id="cups" viewBox="0 0 820 999" preserveAspectRatio="none">
+            <path id="simple" d="M683.71 170.348C720.791 258.272 703.124 355.204 725.256 449.591C747.195 544.173 808.932 636.405 801.361 724.525C793.789 812.645 717.102 896.849 626.243 921.131C535.384 945.413 430.546 909.773 367.256 847.893C303.771 786.209 282.027 698.089 209.805 617.41C137.584 536.536 14.885 463.298 1.29495 386.536C-12.2951 309.773 83.4177 229.682 178.742 151.941C274.067 74.1992 368.809 -1.19239 461.998 0.96166C555.187 2.91988 646.822 82.2279 683.71 170.348Z" fill-rule="nonzero" fill="url(#paint0_linear)"/>
+            <path opacity="0" id="fancy" d="M635.709 144.348C672.791 232.272 655.124 329.204 677.256 423.591C699.194 518.173 760.932 610.405 753.36 698.525C745.789 786.645 674.859 824.718 584 849C493.141 873.282 390.291 856.88 327 795C263.515 733.316 234.026 708.679 161.805 628C89.5837 547.125 15.59 427.262 2 350.5C-11.5901 273.738 66.4806 193.741 161.805 116C257.13 38.2585 366.811 -1.15405 460 1C553.189 2.95822 598.822 56.2279 635.709 144.348Z" fill-rule="nonzero" fill="url(#paint0_linear)"/>
+            <defs>
+                <linearGradient id="paint0_linear" x1="226.558" y1="-25.0836" x2="-376.988" y2="330.205" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#2c7a73" stop-opacity="0.6"/>
+                    <stop offset="0.811947" stop-color="#fbf5e8" stop-opacity="0.4"/>
+                </linearGradient>
+            </defs>
+        </svg>
+    </div>
     <main>
         <div id="divnav">
         <nav>
